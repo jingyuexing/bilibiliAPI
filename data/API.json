@@ -6,7 +6,7 @@
   },
   {
     "link":"https://api.bilibili.com/x/msgfeed/like",
-    "method":"GET"
+    "method":"GET",
     "comment":""
   },
   {
@@ -16,7 +16,7 @@
   },
   {
     "link":"https://api.bilibili.com/x/relation/followers",
-    "method":"GET"
+    "method":"GET",
     "comment":"粉丝"
   }
 ]
