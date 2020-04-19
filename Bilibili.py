@@ -2,13 +2,25 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-04-19 21:57:06
+# @Last Modified time: 2020-04-19 22:15:55
 
 import json
 import urllib3
 
 http = urllib3.PoolManager()
+
+dataType = {
+    "xml":"application/xml",
+    "html":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+    "xhtml":"application/xhtml+xml"
+    "json":"application/json",
+    "text":"text/plain",
+    "webp":"image/webp",
+    "png":"image/apng"
+}
 head = {
+  "Sec-Fetch-Mode":"no-cors",
+  "Accept":"application/json, text/plain, */*"
   "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 }
 with open("data/API.json", "r", encoding='utf-8') as file:
@@ -30,7 +42,7 @@ def requests(method='',url='',parma={}):
   '''
   req = http.request(method=method,url=url,fields=parma,headers=head)
   if req.status == 200:
-    return json.loads(req.data,encoding='utf-8')
+    return json.loads(req.data.decode("utf-8"),encoding='utf-8')
 
 def getRank(rankID=0,day=3,typer=1,arc_type=0):
     config = api[0]
