@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-04-19 22:15:55
+# @Last Modified time: 2020-04-19 22:19:20
 
 import json
 import urllib3
@@ -13,14 +13,17 @@ dataType = {
     "xml":"application/xml",
     "html":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
     "xhtml":"application/xhtml+xml"
-    "json":"application/json",
+    "json":"application/json, text/plain, */*",
     "text":"text/plain",
     "webp":"image/webp",
     "png":"image/apng"
 }
 head = {
   "Sec-Fetch-Mode":"no-cors",
-  "Accept":"application/json, text/plain, */*"
+  "Cache-Control":"max-age=0",
+  "Accept-Encoding":"gzip, deflate, br"
+  "Accept-Language":"zh-CN,zh;q=0.9",
+  "Accept":"application/json, text/plain, */*",
   "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 }
 with open("data/API.json", "r", encoding='utf-8') as file:
