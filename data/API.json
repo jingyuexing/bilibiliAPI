@@ -1,0 +1,19 @@
+[
+  {
+    "link":"https://api.bilibili.com/x/web-interface/ranking",
+    "method":"GET"
+  },
+  {
+    "link":"https://api.bilibili.com/x/msgfeed/like",
+    "method":"GET"
+  },
+  {
+    "link":"https://api.bilibili.com/x/space/acc/info",
+    "method":"GET",
+    "comment":""
+  },
+  {
+    "link":"https://api.bilibili.com/x/relation/followers",
+    "method":"GET"
+  }
+]
