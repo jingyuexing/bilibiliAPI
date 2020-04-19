@@ -1,19 +1,22 @@
 [
   {
     "link":"https://api.bilibili.com/x/web-interface/ranking",
-    "method":"GET"
+    "method":"GET",
+    "comment":"排序"
   },
   {
     "link":"https://api.bilibili.com/x/msgfeed/like",
     "method":"GET"
+    "comment":""
   },
   {
     "link":"https://api.bilibili.com/x/space/acc/info",
     "method":"GET",
-    "comment":""
+    "comment":"用户信息"
   },
   {
     "link":"https://api.bilibili.com/x/relation/followers",
     "method":"GET"
+    "comment":"粉丝"
   }
 ]
