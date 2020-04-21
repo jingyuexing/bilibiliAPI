@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-04-21 10:54:12
+# @Last Modified time: 2020-04-21 10:57:32
 
 import json
 import urllib3
@@ -202,4 +202,4 @@ def getVedioInfo(bvid=0,avid=0):
         }
     return requests(method=method,url=url,parma =parma)
 if __name__ == '__main__':
-    
+    print(api)
