@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-04-21 10:57:32
+# @Last Modified time: 2020-04-21 17:48:57
 
 import json
 import urllib3
@@ -93,7 +93,7 @@ def getUserInfor(userid=0):
         "mid": str(userid),
         "jsonp": "jsonp"
     }
-    return requests(method=method,url=url,fields=parma)
+    return requests(method=method,url=url,parma=parma)
 
 
 def getFanList(mid=0, pageNumber=1, limit=20):
@@ -201,5 +201,62 @@ def getVedioInfo(bvid=0,avid=0):
             "avid":avid
         }
     return requests(method=method,url=url,parma =parma)
+
+class Vedio(object):
+    avid = 0
+    bvid = ''
+    cover=''
+    tagID = 0
+    title = ''
+    oid = 0
+    tag = ''
+    owner = 0
+    createTime = 0
+    """docstring for Vedio"""
+    def __init__(self,vedioID=''):
+        if(vedioID!=''):
+            data = getVedioInfo(bvid=vedioID)
+            if(data!=None):
+                data = data['data']
+                self.avid = data['aid']
+                self.bvid = data['bvid']
+                self.tag = data['tname']
+                self.tagID = data['tid']
+                self.title = data['title']
+                self.cover = data['pic']
+                self.oid = data['cid']
+                self.owner = data['owner']['mid']
+                self.createTime = data['ctime']
+    def getVedio(self):
+        return self
+    def getUser(self):
+        return User(self.owner)
+class User(object):
+    """docstring for User"""
+    mid = 0
+    name = ''
+    sex = ''
+    face = ''
+    birthday=''
+    face = ''
+    rank = 0
+    level = 0
+    vip = False
+    def __init__(self,userid=0):
+        if(userid!=0):
+            data = getUserInfor(userid=userid)
+            if(data!=None):
+                data = data['data']
+                self.mid = data['mid']
+                self.name = data['name']
+                self.sex = data['sex']
+                self.birthday = data['birthday']
+                self.level = data['level']
+                self.rank = data['rank']
+                self.face = data['face']
+                self.vip = bool(data['vip']['type'])
+
 if __name__ == '__main__':
-    print(api)
+    vedio_1 = Vedio("BV1h5411t7WT")
+    user_1 = vedio_1.getUser()
+    print(getVedioInfo(bvid="BV1h5411t7WT"))
