@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-04-19 22:37:35
+# @Last Modified time: 2020-04-21 10:54:12
 
 import json
 import urllib3
@@ -44,6 +44,7 @@ def requests(method='',url='',parma={}):
   Returns:
     {dict} -- 返回数据
   '''
+
   req = http.request(method=method,url=url,fields=parma,headers=head)
   if req.status == 200:
     return json.loads(req.data.decode("utf-8"),encoding='utf-8')
@@ -120,5 +121,85 @@ def getFanList(mid=0, pageNumber=1, limit=20):
     }
     return requests(method=method,url=url,fields=parma)
 
+def getUserVedioList(userMID=0,limit=50,tagID=0,pageNumber=1,order='pubdate'):
+    '''获取用户视频列表
+    
+    [description]
+    
+    Keyword Arguments:
+        userMID {number} -- 用户ID (default: {0})
+        limit {number} -- 限制数,能获取的视频列表条数 (default: {50})
+        tagID {number} -- 标签ID (default: {0})
+        pageNumber {number} -- 页数 (default: {1})
+        order {str} -- 未知 (default: {'pubdate'})
+    
+    Returns:
+        {json} -- 返回的数据
+    '''
+    config = api[5]
+    method = config['method']
+    url = config['link']
+    parma = {
+        'mid':userMID,
+        'ps':limit,
+        'pn':pageNumber,
+        'order':order,
+        'jsonp':'jsonp'
+    }
+    return requests(method=method,url=url,parma=parma)
+
+def getHistoryMsg(tp=1,oid=0,date=0):
+    '''[summary]
+    
+    获取历史弹幕
+    
+    Keyword Arguments:
+        tp {number} -- 类型 (default: {1})
+        oid {number} -- 视频oid号 (default: {0})
+        date {number} -- 日期 日期格式为 YYYY-MM-dd (default: {0})
+    Returns:
+        {XML} -- 服务器返回的数据
+        例如以下的数据格式
+        ```html
+            <d p="567.37200,1,25,16777215,1587435278,0,ea1a2aa0,31610950691848199">哈哈哈哈哈哈</d>
+        ```
+    '''
+    config = api[7]
+    method = config['method']
+    url = config['link']
+    parma = {
+        'type':tp,
+        'oid':oid,
+        'date':date
+    }
+    req = http.request(method=method,url=url,fields=parma)
+    if req.status == 200:
+        return req.data
+
+
+def getVedioInfo(bvid=0,avid=0):
+    '''[summary]
+    
+    获取视频信息
+    
+    Keyword Arguments:
+        bvid {number} -- BV号 (default: {0})
+        avid {number} -- av号 非必须 (default: {0})
+        av号和bv号任选一种
+    Returns:
+        {json} -- 服务器返回的数据
+    '''
+    config = api[7]
+    url = config['link']
+    method = config['method']
+    if bvid != '':
+        parma = {
+            'bvid':bvid
+        }
+    else:
+        parma = {
+            "avid":avid
+        }
+    return requests(method=method,url=url,parma =parma)
 if __name__ == '__main__':
-    print(api)
+    

@@ -18,5 +18,30 @@
     "link":"https://api.bilibili.com/x/relation/followers",
     "method":"GET",
     "comment":"粉丝"
+  },
+  {
+    "link":"https://passport.bilibili.com/qrcode/getLoginInfo",
+    "method":"POST",
+    "comment":""
+  },
+  {
+    "link":"https://api.bilibili.com/x/space/arc/search",
+    "method":"GET",
+    "comment":""
+  },
+  {
+    "link":"https://api.bilibili.com/x/v2/dm/history",
+    "method":"GET",
+    "comment":""
+  },
+  {
+    "link":"https://api.bilibili.com/x/web-interface/view",
+    "method":"GET",
+    "comment":""
+  },
+  {
+    "link":"",
+    "method":"",
+    "comment":""
   }
 ]
