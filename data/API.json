@@ -40,8 +40,53 @@
     "comment":""
   },
   {
-    "link":"",
-    "method":"",
+    "link":"https://api.bilibili.com/x/web-interface/archive/stat",
+    "method":"GET",
+    "comment":"视频状态"
+  },
+  {
+    "link":"http://api.vc.bilibili.com/api/v1/drawImage/upload",
+    "method":"POST",
+    "comment":"传图"
+  },
+  {
+    "link":"http://api.live.bilibili.com/room/v1/Room/getRoomInfoOld",
+    "method":"GET",
     "comment":""
+  },
+  {
+    "link":"http://passport.bilibili.com/qrcode/getLoginUrl",
+    "method":"GET",
+    "comment":""
+  },
+  {
+    "link":"http://passport.bilibili.com/qrcode/getLoginInfo",
+    "method":"POST",
+    "comment":"验证二维码登录"
+  },
+  {
+    "link":"http://passport.bilibili.com/web/generic/check/nickname",
+    "method":"GET",
+    "comment":"检查昵称是否可注册"
+  },
+  {
+    "link":"http://api.bilibili.com/x/relation/followers",
+    "method":"GET",
+    "comment":"若已登录则可查看全部粉丝"
+  },
+  {
+    "link":"http://api.bilibili.com/x/article/viewinfo",
+    "method":"GET",
+    "comment":"获取专栏信息"
+  },
+  {
+    "link":"http://api.bilibili.com/x/credit/blocked/list",
+    "method":"GET",
+    "comment":"获取封禁用户列表"
+  },
+  {
+    "link":"http://api.bilibili.com/x/credit/blocked/info",
+    "method":"GET",
+    "comment":"封禁详情"
   }
 ]
