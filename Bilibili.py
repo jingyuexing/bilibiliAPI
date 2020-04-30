@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-04-29 19:11:28
+# @Last Modified time: 2020-05-01 00:21:59
 
 import json
 import urllib3
@@ -96,7 +96,7 @@ def getUserInfor(userid=0):
     return requests(method=method,url=url,parma=parma)
 
 
-def getFanList(mid=0, pageNumber=1, limit=20):
+def getFanList(userID=0, pageNumber=1, limit=20):
     '''获取粉丝列表
 
     [description]
@@ -113,7 +113,7 @@ def getFanList(mid=0, pageNumber=1, limit=20):
     method = config['method']
     url = config['link']
     parma = {
-        "vmid": mid,
+        "vmid": userID,
         "pn": pageNumber,
         "ps": limit,
         "order": "desc",
@@ -121,7 +121,7 @@ def getFanList(mid=0, pageNumber=1, limit=20):
     }
     return requests(method=method,url=url,fields=parma)
 
-def getUserVedioList(userMID=0,limit=50,tagID=0,pageNumber=1,order='pubdate'):
+def getUserVedioList(userID=0,limit=50,tagID=0,pageNumber=1,order='pubdate'):
     '''获取用户视频列表
     
     [description]
@@ -140,7 +140,7 @@ def getUserVedioList(userMID=0,limit=50,tagID=0,pageNumber=1,order='pubdate'):
     method = config['method']
     url = config['link']
     parma = {
-        'mid':userMID,
+        'mid':userID,
         'ps':limit,
         'pn':pageNumber,
         'order':order,
@@ -176,7 +176,7 @@ def getHistoryMsg(tp=1,oid=0,date=0):
     if req.status == 200:
         return req.data
 
-def getStat(aid=0):
+def getVedioStat(vedioID=0):
     '''获取视频的硬币 分享 喜欢
     
     [description]
@@ -188,7 +188,7 @@ def getStat(aid=0):
     url = config['link']
     method = config['method']
     param = {
-        'aid':aid
+        'aid':vedioID
     }
     req = requests(method=method,url=url,param=param)
 
@@ -242,13 +242,13 @@ def uploadImage(img:str='',imgType:str="daily"):
         return data['data']
 
 
-def getRoomInfo(mid=0):
+def getRoomInfo(userID=0):
     '''获取用户直播间信息
     
     [description]
     
     Keyword Arguments:
-        mid {number} -- 用户mid (default: {0})
+        userID {number} -- 用户mid (default: {0})
     
     Returns:
         {dict} -- 返回信息
@@ -257,7 +257,7 @@ def getRoomInfo(mid=0):
     method = config['method']
     url = config['link']
     param = {
-        'mid':mid
+        'mid':userID
     }
     return requests(method=method,url=url,param=param)
 
@@ -289,7 +289,7 @@ def checkNickName(nickName:str=""):
     return requests(method=method,url=url,param=param)
 
 
-def getFollows(mid=0,limit=50,pageNumber=1):
+def getFollows(userID=0,limit=50,pageNumber=1):
     '''获取粉丝数
     
     若登陆则可获取全部粉丝数
@@ -306,7 +306,7 @@ def getFollows(mid=0,limit=50,pageNumber=1):
     url = config['link']
     method = config['method']
     param = {
-        'vmid':mid,
+        'vmid':userID,
         'ps':limit,
         'pn':pageNumber
     }
@@ -404,6 +404,11 @@ class Vedio(object):
         return self
     def getUser(self):
         return User(self.owner)
+
+class Article:
+    def __init__(self,):
+
+
 class User(object):
     """docstring for User"""
     mid:int = 0
@@ -411,7 +416,6 @@ class User(object):
     sex:str = ''
     face:str = ''
     birthday:str =''
-    face:str = ''
     rank:int = 0
     level:int = 0
     vip:bool = False
