@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-01 00:21:59
+# @Last Modified time: 2020-05-01 00:37:02
 
 import json
 import urllib3
@@ -102,7 +102,7 @@ def getFanList(userID=0, pageNumber=1, limit=20):
     [description]
 
     Keyword Arguments:
-      mid {number} -- 用户id (default: {0})
+      userID {number} -- 用户id (default: {0})
       pageNumber {number} -- 列表页数 (default: {1})
       limit {number} -- 信息条数 (default: {20})
 
@@ -127,7 +127,7 @@ def getUserVedioList(userID=0,limit=50,tagID=0,pageNumber=1,order='pubdate'):
     [description]
     
     Keyword Arguments:
-        userMID {number} -- 用户ID (default: {0})
+        userID {number} -- 用户ID (default: {0})
         limit {number} -- 限制数,能获取的视频列表条数 (default: {50})
         tagID {number} -- 标签ID (default: {0})
         pageNumber {number} -- 页数 (default: {1})
@@ -182,7 +182,7 @@ def getVedioStat(vedioID=0):
     [description]
     
     Keyword Arguments:
-        aid {number} -- [description] (default: {0})
+        vedioID {number} -- [description] (default: {0})
     '''
     config = api[8]
     url = config['link']
