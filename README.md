@@ -5,7 +5,7 @@
 
  多数的BilibiliAPI项目由于年久失修,所以有了写这个项目想法
 
-# API
+## API
 ---
 
 * 获取排行榜视频列表
@@ -87,7 +87,7 @@ getBlockedInfo(userID:int)
 ```
 
 
-# LICENSE
+## LICENSE
 
 MIT
 
