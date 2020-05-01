@@ -2,7 +2,7 @@
 # @Author: Jingyuexing
 # @Date:   2020-04-30 15:48:44
 # @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-05-01 16:51:20
+# @Last Modified time: 2020-05-01 17:25:19
 
 import xml.etree.ElementTree as ET
 
@@ -17,7 +17,7 @@ class Danmaku:
     date:int
     dmid:int
     pool:int
-    stime:int
+    stime:float
     mode:int
     text:str
     uhash:str
@@ -31,13 +31,13 @@ class Danmaku:
                 tempdict = {}
                 attribList = ele.attrib['p'].split(',')
                 tempdict['uhash'] = attribList[6]
-                tempdict['date'] = attribList[4]
-                tempdict['pool'] = attribList[5]
-                tempdict['color'] = attribList[3]
-                tempdict['size'] = attribList[2]
+                tempdict['date'] = int(attribList[4])
+                tempdict['pool'] = int(attribList[5])
+                tempdict['color'] = int(attribList[3])
+                tempdict['size'] = int(attribList[2])
                 tempdict['dmid'] = attribList[7]
-                tempdict['mode'] = attribList[1]
-                tempdict['stime'] = attribList[0]
+                tempdict['mode'] = int(attribList[1])
+                tempdict['stime'] = float(attribList[0])
                 self.data.append(tempdict)
     def getDanmu(self,index=0):
         data = self.data[index]

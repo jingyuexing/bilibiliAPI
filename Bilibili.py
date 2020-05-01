@@ -47,7 +47,7 @@ def requests(method='',url='',param={}):
 
   req = http.request(method=method,url=url,fields=param,headers=head)
   if req.status == 200:
-    return req.data.decode("utf-8")
+    return json.loads(req.data.decode("utf-8"),encoding='utf-8')
 
 def getRank(rankID=0,day=3,typer=1,arc_type=0):
     '''获取排行榜
@@ -73,7 +73,7 @@ def getRank(rankID=0,day=3,typer=1,arc_type=0):
       'arc_type':arc_type,
       'jsonp':'jsonp'
     }
-    return json.loads(requests(method=method,url=url,fields=parma),encoding='utf-8')
+    return requests(method=method,url=url,fields=parma)
 
 def getUserInfor(userid=0):
     '''获取用户信息
