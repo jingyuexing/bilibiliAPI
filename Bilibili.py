@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-01 00:37:02
+# @Last Modified time: 2020-05-01 13:15:53
 
 import json
 import urllib3
@@ -289,7 +289,7 @@ def checkNickName(nickName:str=""):
     return requests(method=method,url=url,param=param)
 
 
-def getFollows(userID=0,limit=50,pageNumber=1):
+def getFollowsList(userID=0,limit=50,pageNumber=1):
     '''获取粉丝数
     
     若登陆则可获取全部粉丝数
@@ -312,19 +312,19 @@ def getFollows(userID=0,limit=50,pageNumber=1):
     }
     return requests(method=method,url=url,param=param)
 
-def getBlackList(btype=None,otype=0,pn=1):
+def getBlackList(btype=None,otype=0,pageNumber=1):
     config = api[16]
     method = config['method']
     url  = config['link']
     param = {
         'btype':btype,
         'otype':otype,
-        'pn':pn
+        'pn':pageNumber
     }
     return requests(method=method,url=url,param=param)
 
 
-def getBlockedInfo(mid=0):
+def getBlockedInfo(userID=0):
     '''获取被禁用户的详情
     
     [description]
@@ -339,7 +339,7 @@ def getBlockedInfo(mid=0):
     method = config['method']
     url = config['link']
     param = {
-        "id":mid
+        "id":userID
     }
     return requests(method=method,url=url,param=param)
 
