@@ -2,11 +2,11 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-01 13:15:53
+# @Last Modified time: 2020-05-01 15:57:44
 
 import json
 import urllib3
-
+from .parserXML import parserDamuku
 http = urllib3.PoolManager()
 
 dataType = {
@@ -47,7 +47,7 @@ def requests(method='',url='',param={}):
 
   req = http.request(method=method,url=url,fields=param,headers=head)
   if req.status == 200:
-    return json.loads(req.data.decode("utf-8"),encoding='utf-8')
+    return req.data.decode("utf-8")
 
 def getRank(rankID=0,day=3,typer=1,arc_type=0):
     '''获取排行榜
@@ -73,7 +73,7 @@ def getRank(rankID=0,day=3,typer=1,arc_type=0):
       'arc_type':arc_type,
       'jsonp':'jsonp'
     }
-    return requests(method=method,url=url,fields=parma)
+    return json.loads(requests(method=method,url=url,fields=parma),encoding='utf-8')
 
 def getUserInfor(userid=0):
     '''获取用户信息
@@ -93,7 +93,7 @@ def getUserInfor(userid=0):
         "mid": str(userid),
         "jsonp": "jsonp"
     }
-    return requests(method=method,url=url,parma=parma)
+    return json.loads(requests(method=method,url=url,parma=parma),encoding='utf-8')
 
 
 def getFanList(userID=0, pageNumber=1, limit=20):
@@ -159,10 +159,13 @@ def getHistoryMsg(tp=1,oid=0,date=0):
         date {number} -- 日期 日期格式为 YYYY-MM-dd (default: {0})
     Returns:
         {XML} -- 服务器返回的数据
+
         例如以下的数据格式
-        ```html
-            <d p="567.37200,1,25,16777215,1587435278,0,ea1a2aa0,31610950691848199">哈哈哈哈哈哈</d>
-        ```
+
+    ```html
+        <d p="567.37200,1,25,16777215,1587435278,0,ea1a2aa0,31610950691848199">哈哈哈哈哈哈</d>
+    ```
+
     '''
     config = api[7]
     method = config['method']
@@ -174,7 +177,7 @@ def getHistoryMsg(tp=1,oid=0,date=0):
     }
     req = http.request(method=method,url=url,fields=parma)
     if req.status == 200:
-        return req.data
+        return parserDamuku.Danmaku(req.data)
 
 def getVedioStat(vedioID=0):
     '''获取视频的硬币 分享 喜欢
@@ -407,7 +410,7 @@ class Vedio(object):
 
 class Article:
     def __init__(self,):
-
+        pass
 
 class User(object):
     """docstring for User"""

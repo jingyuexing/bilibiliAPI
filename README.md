@@ -7,7 +7,6 @@
 
  ![](https://img.shields.io/badge/language-python-blue.svg)
  ![](https://img.shields.io/badge/API-bilibili-fb7299.svg)
- ![](https://img.shields.io/github/stars/jingyuexing/bilibiliAPI?style=flat)
 ## API
 ---
 
