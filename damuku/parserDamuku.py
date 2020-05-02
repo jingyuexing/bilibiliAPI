@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Jingyuexing
 # @Date:   2020-04-30 15:48:44
-# @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-05-01 17:25:19
+# @Last Modified by:   Jingyuexing
+# @Last Modified time: 2020-05-02 00:12:28
 
 import xml.etree.ElementTree as ET
 
@@ -51,3 +51,4 @@ class Danmaku:
         danmu.stime = data['stime']
         danmu.color = data['color']
         return danmu
+

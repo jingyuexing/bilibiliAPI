@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-01 15:57:44
+# @Last Modified by:   jingyuexing
+# @Last Modified time: 2020-05-03 01:44:44
 
 import json
 import urllib3
-from .parserXML import parserDamuku
+from damuku import parserDamuku
 http = urllib3.PoolManager()
 
 dataType = {
@@ -32,8 +32,10 @@ with open("data/API.json", "r", encoding='utf-8') as file:
 
 
 def requests(method='',url='',param={}):
-  '''发起请求
-  
+  '''
+  发起请求
+  =======
+
   [description]
   
   Keyword Arguments:
@@ -93,7 +95,7 @@ def getUserInfor(userid=0):
         "mid": str(userid),
         "jsonp": "jsonp"
     }
-    return json.loads(requests(method=method,url=url,parma=parma),encoding='utf-8')
+    return requests(method=method,url=url,param=parma)
 
 
 def getFanList(userID=0, pageNumber=1, limit=20):
@@ -365,6 +367,64 @@ def getArticleInfo(articleID=0):
     }
     return requests(method=method,url=url,param=param)
 
+def getMyselfInfo():
+    pass
+
+def getUserInfoCard():
+    pass
+
+def getShortInfo():
+    pass
+
+def searchUserVedio():
+    pass
+
+def sendDamuku():
+    pass
+
+def sendMsg():
+    pass
+
+def isLike():
+    pass
+
+def isCoins():
+    pass
+
+def isFavorite():
+    pass
+
+def getRelations(userID=0):
+    config = api[29]
+    url = config['link']
+    method = config['method']
+    param = {
+        "fids":mid,
+        "jsonp":"jsonp"
+    }
+    return requests(method=method,url=url,param=param)
+
+def vedioTagDelete(AID=0,tagID=0):
+    '''需要在登陆情况下操作
+    
+    删除标签
+    
+    Keyword Arguments:
+        AID {number} -- 视频的aid号 (default: {0})
+        tagID {number} -- 标签的ID (default: {0})
+    
+    Returns:
+        [type] -- [description]
+    '''
+    config = api[30]
+    url = config['link']
+    method = config['method']
+    param = {
+        "aid":AID,
+        "tag_id":tagID,
+        "jsonp":"jsonp"
+    }
+    return requests(method=method,url=url,param=param)
 
 class Vedio(object):
     avid = 0
@@ -436,9 +496,3 @@ class User(object):
                 self.face = data['face']
                 self.vip = bool(data['vip']['type'])
 
-
-
-if __name__ == '__main__':
-    vedio_1 = Vedio("BV1h5411t7WT")
-    user_1 = vedio_1.getUser()
-    print(getVedioInfo(bvid="BV1h5411t7WT"))
