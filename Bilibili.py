@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-05-03 01:44:44
+# @Last Modified by:   Jingyuexing
+# @Last Modified time: 2020-05-04 02:07:36
 
 import json
 import urllib3
@@ -142,13 +142,14 @@ def getUserVedioList(userID=0,limit=50,tagID=0,pageNumber=1,order='pubdate'):
     method = config['method']
     url = config['link']
     parma = {
-        'mid':userID,
-        'ps':limit,
-        'pn':pageNumber,
-        'order':order,
-        'jsonp':'jsonp'
+        'mid': userID,
+        'ps': limit,
+        'pn': pageNumber,
+        'order': order,
+        'jsonp': 'jsonp'
     }
     return requests(method=method,url=url,parma=parma)
+
 
 def getHistoryMsg(tp=1,oid=0,date=0):
     '''[summary]
@@ -181,6 +182,7 @@ def getHistoryMsg(tp=1,oid=0,date=0):
     if req.status == 200:
         return parserDamuku.Danmaku(req.data)
 
+
 def getVedioStat(vedioID=0):
     '''获取视频的硬币 分享 喜欢
     
@@ -195,10 +197,10 @@ def getVedioStat(vedioID=0):
     param = {
         'aid':vedioID
     }
-    req = requests(method=method,url=url,param=param)
+    return requests(method=method,url=url,param=param)
 
 
-def getVedioInfo(bvid=0,avid=0):
+def getVedioInfo(bvid=0, avid=0):
     '''[summary]
     
     获取视频信息
@@ -219,9 +221,9 @@ def getVedioInfo(bvid=0,avid=0):
         }
     else:
         parma = {
-            "avid":avid
+            "avid": avid
         }
-    return requests(method=method,url=url,param =parma)
+    return requests(method=method, url=url, param=parma)
 
 def uploadImage(img:str='',imgType:str="daily"):
     '''上传图片
@@ -359,7 +361,7 @@ def getArticleInfo(articleID=0):
     Returns:
         {json} -- 返回的数据
     '''
-    config =api[15]
+    config = api[15]
     method = config['method']
     url = config['link']
     param={
@@ -367,29 +369,38 @@ def getArticleInfo(articleID=0):
     }
     return requests(method=method,url=url,param=param)
 
+
 def getMyselfInfo():
     pass
+
 
 def getUserInfoCard():
     pass
 
+
 def getShortInfo():
     pass
+
 
 def searchUserVedio():
     pass
 
+
 def sendDamuku():
     pass
+
 
 def sendMsg():
     pass
 
+
 def isLike():
     pass
 
+
 def isCoins():
     pass
+
 
 def isFavorite():
     pass
@@ -399,10 +410,11 @@ def getRelations(userID=0):
     url = config['link']
     method = config['method']
     param = {
-        "fids":mid,
-        "jsonp":"jsonp"
+        "fids": userID,
+        "jsonp": "jsonp"
     }
     return requests(method=method,url=url,param=param)
+
 
 def vedioTagDelete(AID=0,tagID=0):
     '''需要在登陆情况下操作
@@ -420,11 +432,12 @@ def vedioTagDelete(AID=0,tagID=0):
     url = config['link']
     method = config['method']
     param = {
-        "aid":AID,
-        "tag_id":tagID,
-        "jsonp":"jsonp"
+        "aid": AID,
+        "tag_id": tagID,
+        "jsonp": "jsonp"
     }
     return requests(method=method,url=url,param=param)
+
 
 class Vedio(object):
     avid = 0
@@ -472,6 +485,7 @@ class Article:
     def __init__(self,):
         pass
 
+
 class User(object):
     """docstring for User"""
     mid:int = 0
@@ -482,6 +496,7 @@ class User(object):
     rank:int = 0
     level:int = 0
     vip:bool = False
+
     def __init__(self,userid=0):
         if(userid!=0):
             data = getUserInfor(userid=userid)
@@ -495,4 +510,3 @@ class User(object):
                 self.rank = data['rank']
                 self.face = data['face']
                 self.vip = bool(data['vip']['type'])
-
