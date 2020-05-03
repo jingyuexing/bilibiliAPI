@@ -1,0 +1,22 @@
+[flake8]
+ignore=
+    D1,
+    W503
+    W293
+    W291
+    E121
+    W391
+    
+exclude=
+    .tox
+    __pycache__
+    .pyc
+    .git
+    .gitignore
+    .ts
+    .js
+    .md
+
+filename=
+    Bilibili.py
+    damuku/parserDamuku.py
