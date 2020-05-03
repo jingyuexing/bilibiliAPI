@@ -1,12 +1,14 @@
 [flake8]
+max-line-length = 255
+
 ignore=
     D1,
     W503
     W293
     W291
     E121
-    W391
-    
+    E231
+
 exclude=
     .tox
     __pycache__

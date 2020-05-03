@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-04 02:07:36
+# @Last Modified time: 2020-05-04 04:15:15
 
 import json
 import urllib3
@@ -32,7 +32,7 @@ with open("data/API.json", "r", encoding='utf-8') as file:
 
 
 def requests(method='',url='',param={}):
-  '''
+    '''
   发起请求
   =======
 
@@ -52,7 +52,8 @@ def requests(method='',url='',param={}):
     return json.loads(req.data.decode("utf-8"),encoding='utf-8')
 
 def getRank(rankID=0,day=3,typer=1,arc_type=0):
-    '''获取排行榜
+    '''
+    获取排行榜
     
     [description]
     
@@ -122,6 +123,7 @@ def getFanList(userID=0, pageNumber=1, limit=20):
         "jsonp": "jsonp"
     }
     return requests(method=method,url=url,fields=parma)
+
 
 def getUserVedioList(userID=0,limit=50,tagID=0,pageNumber=1,order='pubdate'):
     '''获取用户视频列表
@@ -225,7 +227,8 @@ def getVedioInfo(bvid=0, avid=0):
         }
     return requests(method=method, url=url, param=parma)
 
-def uploadImage(img:str='',imgType:str="daily"):
+
+def uploadImage(img:str = '', imgType:str = "daily"):
     '''上传图片
     
     [description]
@@ -276,7 +279,7 @@ def getLoginUrl():
     return requests(method=method,url=url)
 
 
-def checkNickName(nickName:str=""):
+def checkNickName(nickName:str = ""):
     '''检查昵称是否存在
     
     [description]
@@ -364,18 +367,34 @@ def getArticleInfo(articleID=0):
     config = api[15]
     method = config['method']
     url = config['link']
-    param={
-        'id':articleID
+    param = {
+        'id': articleID
     }
-    return requests(method=method,url=url,param=param)
+
+    return requests(method=method, url=url, param=param)
+
+def getOnlineNumber():
+    '''获取在线人数
+    
+    '''
+    config = api[18]
+    method = config['method']
+    url = config['link']
+    return requests(method=method,url=url)
 
 
 def getMyselfInfo():
     pass
 
 
-def getUserInfoCard():
-    pass
+def getUserInfoCard(userID):
+    config = api[28]
+    url = config['link']
+    method = config['method']
+    param = {
+        'mid': userID
+    }
+    return requests(method=method, url=url, param=param)
 
 
 def getShortInfo():
@@ -390,20 +409,66 @@ def sendDamuku():
     pass
 
 
-def sendMsg():
-    pass
+def sendMsg(yourID,elseID,content=''):
+    '''发送消息
+    
+    给别人发送消息
+    
+    Arguments:
+        yourID {int} -- 你的ID
+        elseID {int} -- 对方的ID
+    
+    Keyword Arguments:
+        content {str} -- 发送的消息的内容 (default: {''})
+    
+    Returns:
+        {json} -- 回应消息
+    '''
+    config = api[19]
+    method = config['method']
+    url = config['link']
+    param = {
+        "msg[sender_uid]":yourID,
+        "msg[receiver_id]":elseID,
+        "msg[receiver_type]":1,
+        "msg[msg_type]":1,
+        "msg[msg_status]":1,
+        "msg[content]":{
+            "content": content
+        }
+    }
+    return requests(method=method, url=url, param=param)
 
 
-def isLike():
-    pass
+def isLike(avID=None,bvID=""):
+    config = api[21]
+    method = config['method']
+    url = api['link']
+    if(avID!=None):
+        param = {
+        'aid':avID
+        }
+    return requests(method=method, url=url,param=param)
 
 
-def isCoins():
-    pass
+def isCoins(avID=None,bvID=""):
+    config = api[22]
+    method = config['method']
+    url = api['link']
+    if(bvID!=None):
+        param = {
+            'aid':avID
+        }
+    return requests(method=method, url=url,param=param)
 
-
-def isFavorite():
-    pass
+def isFavorite(avID=None,bvID=""):
+    config = api[23]
+    method = config['method']
+    url = api['link']
+    param = {
+        'aid':avID
+    }
+    return requests(method=method, url=url,param=param)
 
 def getRelations(userID=0):
     config = api[29]
