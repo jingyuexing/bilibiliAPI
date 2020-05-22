@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-05-22 21:19:26
+# @Last Modified by:   Jingyuexing
+# @Last Modified time: 2020-05-23 00:07:00
 
 import json,time
 import urllib3
@@ -409,11 +409,6 @@ def searchUserVedio():
     pass
 
 
-def sendDamuku():
-
-    pass
-
-
 def sendMsg(yourID, elseID, content=''):
     '''发送消息
 
@@ -589,7 +584,7 @@ class Vedio(object):
     def getDamku(self):
         return getDanmuku(self.cid)
 
-    def sendDamku(self,color:str = '',fontsize:int = 25,mode:int = 1,pool:int = 1,content:str = ''):
+    def sendDamku(self,color:str = '#ffffff',fontsize:int = 25,mode:int = 1,pool:int = 1,content:str = ''):
         '''发送弹幕
         [description]
         Keyword Arguments:
@@ -611,9 +606,9 @@ class Vedio(object):
             'msg':content,
             'progress':int(time.time()),
             'color':color,
-            'fontsize':'',
-            'pool':'',
-            'mode':'',
+            'fontsize':fontsize,
+            'pool':pool,
+            'mode':mode,
             'plat':'1'
         }
         return requests(method,url,param)
