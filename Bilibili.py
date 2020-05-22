@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-20 23:45:18
+# @Last Modified by:   jingyuexing
+# @Last Modified time: 2020-05-22 19:44:53
 
 import json
 import urllib3
-from .damuku import parserDamuku
+from damuku import parserDamuku
 http = urllib3.PoolManager()
 
 dataType = {
@@ -19,12 +19,12 @@ dataType = {
     "png": "image/apng"
 }
 head = {
-  "Sec-Fetch-Mode": "no-cors",
-  "Cache-Control": "max-age=0",
-  "Accept-Encoding": "gzip, deflate, br",
-  "Accept-Language": "zh-CN,zh;q=0.9",
-  "Accept": "application/json, text/plain, */*",
-  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
+    "Sec-Fetch-Mode": "no-cors",
+    "Cache-Control": "max-age=0",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "zh-CN,zh;q=0.9",
+    "Accept": "application/json, text/plain, */*",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 }
 with open("data/API.json", "r", encoding='utf-8') as file:
     api = json.loads(file.read())
@@ -33,59 +33,60 @@ with open("data/API.json", "r", encoding='utf-8') as file:
 
 def requests(method='', url='', param={}):
     '''
-  发起请求
-  =======
+    发起请求
+    =======
 
-  [description]
-  
-  Keyword Arguments:
-    method {str} -- 方式(POST|GET|DELETE) (default: {''})    
-    url {str} -- 链接 (default: {''})    
-    parma {dict} -- 参数 (default: {{}})    
-  
-  Returns:
-    {dict} -- 返回数据
-  '''
+    [description]
 
-  req = http.request(method=method,url=url,fields=param,headers=head)
-  if req.status == 200:
-    return json.loads(req.data.decode("utf-8"),encoding='utf-8')
+    Keyword Arguments:
+        method {str} -- 方式(POST|GET|DELETE) (default: {''})    
+        url {str} -- 链接 (default: {''})    
+        parma {dict} -- 参数 (default: {{}})    
 
-def getRank(rankID=0,day=3,typer=1,arc_type=0):
+    Returns:
+        {dict} -- 返回数据
+    '''
+    req = http.request(method=method, url=url, fields=param, headers=head)
+    if (req.status == 200):
+        return json.loads(req.data.decode("utf-8"), encoding='utf-8')
+
+
+def getRank(rankID=0, day=3, typer=1, arc_type=0):
     '''
     获取排行榜
-    
+
     [description]
-    
+
     Keyword Arguments:
         rankID {number} -- [description] (default: {0})
         day {number} -- [description] (default: {3})
         typer {number} -- [description] (default: {1})
         arc_type {number} -- [description] (default: {0})
-    
+
     Returns:
         [type] -- [description]
     '''
     config = api[0]
     method = config['method']
     url = config['link']
-    parma ={
-      "rid":rankID,
-      'day':day,
-      'type':typer,
-      'arc_type':arc_type,
-      'jsonp':'jsonp'
+    parma = {
+        "rid": rankID,
+        'day': day,
+        'type': typer,
+        'arc_type': arc_type,
+        'jsonp': 'jsonp'
     }
-    return requests(method=method,url=url,fields=parma)
+    return requests(method=method, url=url, fields=parma)
+
 
 def getUserInfor(userid=0):
     '''获取用户信息
-    
+
     [description]
-    
+
     Keyword Arguments:
         userid {number} -- [description] (default: {0})
-    
+
     Returns:
         [type] -- [description]
     '''
@@ -93,10 +94,10 @@ def getUserInfor(userid=0):
     method = config["method"]
     url = config["link"]
     parma = {
-        "mid": str(userid),
+        "mid":str(userid),
         "jsonp": "jsonp"
     }
-    return requests(method=method,url=url,param=parma)
+    return requests(method=method, url=url, param=parma)
 
 
 def getFanList(userID=0, pageNumber=1, limit=20):
@@ -122,21 +123,21 @@ def getFanList(userID=0, pageNumber=1, limit=20):
         "order": "desc",
         "jsonp": "jsonp"
     }
-    return requests(method=method,url=url,fields=parma)
+    return requests(method=method, url=url, fields=parma)
 
 
-def getUserVedioList(userID=0,limit=50,tagID=0,pageNumber=1,order='pubdate'):
+def getUserVedioList(userID=0, limit=50, tagID=0, pageNumber=1, order='pubdate'):
     '''获取用户视频列表
-    
+
     [description]
-    
+
     Keyword Arguments:
         userID {number} -- 用户ID (default: {0})
         limit {number} -- 限制数,能获取的视频列表条数 (default: {50})
         tagID {number} -- 标签ID (default: {0})
         pageNumber {number} -- 页数 (default: {1})
         order {str} -- 未知 (default: {'pubdate'})
-    
+
     Returns:
         {json} -- 返回的数据
     '''
@@ -150,14 +151,14 @@ def getUserVedioList(userID=0,limit=50,tagID=0,pageNumber=1,order='pubdate'):
         'order': order,
         'jsonp': 'jsonp'
     }
-    return requests(method=method,url=url,parma=parma)
+    return requests(method=method, url=url, parma=parma)
 
 
-def getHistoryMsg(tp=1,oid=0,date=0):
+def getHistoryMsg(tp=1, oid=0, date=0):
     '''[summary]
-    
+
     获取历史弹幕
-    
+
     Keyword Arguments:
         tp {number} -- 类型 (default: {1})
         oid {number} -- 视频oid号 (default: {0})
@@ -176,20 +177,20 @@ def getHistoryMsg(tp=1,oid=0,date=0):
     method = config['method']
     url = config['link']
     parma = {
-        'type':tp,
-        'oid':oid,
-        'date':date
+        'type': tp,
+        'oid': oid,
+        'date': date
     }
-    req = http.request(method=method,url=url,fields=parma)
+    req = http.request(method=method, url=url, fields=parma)
     if req.status == 200:
         return parserDamuku.Danmaku(req.data)
 
 
 def getVedioStat(vedioID=0):
     '''获取视频的硬币 分享 喜欢
-    
+
     [description]
-    
+
     Keyword Arguments:
         vedioID {number} -- [description] (default: {0})
     '''
@@ -197,16 +198,16 @@ def getVedioStat(vedioID=0):
     url = config['link']
     method = config['method']
     param = {
-        'aid':vedioID
+        'aid': vedioID
     }
-    return requests(method=method,url=url,param=param)
+    return requests(method=method, url=url, param=param)
 
 
 def getVedioInfo(bvid=0, avid=0):
     '''[summary]
-    
+
     获取视频信息
-    
+
     Keyword Arguments:
         bvid {number} -- BV号 (default: {0})
         avid {number} -- av号 非必须 (default: {0})
@@ -219,7 +220,7 @@ def getVedioInfo(bvid=0, avid=0):
     method = config['method']
     if bvid != '':
         parma = {
-            'bvid':bvid
+            'bvid': bvid
         }
     else:
         parma = {
@@ -228,15 +229,15 @@ def getVedioInfo(bvid=0, avid=0):
     return requests(method=method, url=url, param=parma)
 
 
-def uploadImage(img:str = '', imgType:str = "daily"):
+def uploadImage(img: str = '', imgType: str = "daily"):
     '''上传图片
-    
+
     [description]
-    
+
     Keyword Arguments:
         img {str} -- 文件名 (default: {''})
         imgType {str} -- 文件类型 (default: {"daily"})
-    
+
     Returns:
         {dict} -- 返回JSON数据
     '''
@@ -244,22 +245,22 @@ def uploadImage(img:str = '', imgType:str = "daily"):
     method = config['method']
     url = config['link']
     param = {
-        'file_up':img,
-        'category':imgType
+        'file_up': img,
+        'category': imgType
     }
-    data = requests(method=method,url=url,param=param)
-    if(data!=None and data['message']== 'success'):
+    data = requests(method=method, url=url, param=param)
+    if(data != None and data['message'] == 'success'):
         return data['data']
 
 
 def getRoomInfo(userID=0):
     '''获取用户直播间信息
-    
+
     [description]
-    
+
     Keyword Arguments:
         userID {number} -- 用户mid (default: {0})
-    
+
     Returns:
         {dict} -- 返回信息
     '''
@@ -267,26 +268,26 @@ def getRoomInfo(userID=0):
     method = config['method']
     url = config['link']
     param = {
-        'mid':userID
+        'mid': userID
     }
-    return requests(method=method,url=url,param=param)
+    return requests(method=method, url=url, param=param)
 
 
 def getLoginUrl():
     config = api[11]
     method = config['method']
     url = config['link']
-    return requests(method=method,url=url)
+    return requests(method=method, url=url)
 
 
-def checkNickName(nickName:str = ""):
+def checkNickName(nickName: str = ""):
     '''检查昵称是否存在
-    
+
     [description]
-    
+
     Keyword Arguments:
         nickName {str} -- 昵称 (default: {""})
-    
+
     Returns:
         {dict} -- 返回信息
     '''
@@ -294,21 +295,21 @@ def checkNickName(nickName:str = ""):
     method = config['method']
     url = config['link']
     param = {
-        'nickName':nickName
+        'nickName': nickName
     }
-    return requests(method=method,url=url,param=param)
+    return requests(method=method, url=url, param=param)
 
 
-def getFollowsList(userID=0,limit=50,pageNumber=1):
+def getFollowsList(userID=0, limit=50, pageNumber=1):
     '''获取粉丝数
-    
+
     若登陆则可获取全部粉丝数
-    
+
     Keyword Arguments:
         mid {number} -- 用户id (default: {0})
         limit {number} -- 每次获取条数 (default: {50})
         pageNumber {number} -- 页码 (default: {1})
-    
+
     Returns:
         [type] -- [description]
     '''
@@ -316,32 +317,33 @@ def getFollowsList(userID=0,limit=50,pageNumber=1):
     url = config['link']
     method = config['method']
     param = {
-        'vmid':userID,
-        'ps':limit,
-        'pn':pageNumber
+        'vmid': userID,
+        'ps': limit,
+        'pn': pageNumber
     }
-    return requests(method=method,url=url,param=param)
+    return requests(method=method, url=url, param=param)
 
-def getBlackList(btype=None,otype=0,pageNumber=1):
+
+def getBlackList(btype=None, otype=0, pageNumber=1):
     config = api[16]
     method = config['method']
-    url  = config['link']
+    url = config['link']
     param = {
-        'btype':btype,
-        'otype':otype,
-        'pn':pageNumber
+        'btype': btype,
+        'otype': otype,
+        'pn': pageNumber
     }
-    return requests(method=method,url=url,param=param)
+    return requests(method=method, url=url, param=param)
 
 
 def getBlockedInfo(userID=0):
     '''获取被禁用户的详情
-    
+
     [description]
-    
+
     Keyword Arguments:
         mid {number} -- 用户mid (default: {0})
-    
+
     Returns:
         {dict} -- JSON
     '''
@@ -349,18 +351,19 @@ def getBlockedInfo(userID=0):
     method = config['method']
     url = config['link']
     param = {
-        "id":userID
+        "id": userID
     }
-    return requests(method=method,url=url,param=param)
+    return requests(method=method, url=url, param=param)
+
 
 def getArticleInfo(articleID=0):
     '''获取专栏信息
-    
+
     [description]
-    
+
     Keyword Arguments:
         articleID {number} -- 专栏id (default: {0})
-    
+
     Returns:
         {json} -- 返回的数据
     '''
@@ -373,14 +376,15 @@ def getArticleInfo(articleID=0):
 
     return requests(method=method, url=url, param=param)
 
+
 def getOnlineNumber():
     '''获取在线人数
-    
+
     '''
     config = api[18]
     method = config['method']
     url = config['link']
-    return requests(method=method,url=url)
+    return requests(method=method, url=url)
 
 
 def getMyselfInfo():
@@ -406,22 +410,22 @@ def searchUserVedio():
 
 
 def sendDamuku():
-    
+
     pass
 
 
-def sendMsg(yourID,elseID,content=''):
+def sendMsg(yourID, elseID, content=''):
     '''发送消息
-    
+
     给别人发送消息
-    
+
     Arguments:
         yourID {int} -- 你的ID
         elseID {int} -- 对方的ID
-    
+
     Keyword Arguments:
         content {str} -- 发送的消息的内容 (default: {''})
-    
+
     Returns:
         {json} -- 回应消息
     '''
@@ -429,59 +433,60 @@ def sendMsg(yourID,elseID,content=''):
     method = config['method']
     url = config['link']
     param = {
-        "msg[sender_uid]":yourID,
-        "msg[receiver_id]":elseID,
-        "msg[receiver_type]":1,
-        "msg[msg_type]":1,
-        "msg[msg_status]":1,
-        "msg[content]":{
+        "msg[sender_uid]": yourID,
+        "msg[receiver_id]": elseID,
+        "msg[receiver_type]": 1,
+        "msg[msg_type]": 1,
+        "msg[msg_status]": 1,
+        "msg[content]": {
             "content": content
         }
     }
     return requests(method=method, url=url, param=param)
 
 
-def isLike(avID=None,bvID=""):
+def isLike(avID=None, bvID=""):
     config = api[21]
     method = config['method']
     url = api['link']
-    if(avID!=None):
+    if(avID != None):
         param = {
-        'aid':avID
+            'aid': avID
         }
-    return requests(method=method, url=url,param=param)
+    return requests(method=method, url=url, param=param)
 
 
-def isCoins(avID=None,bvID=""):
+def isCoins(avID=None, bvID=""):
     '''是否投币
-    
+
     [description]
-    
+
     Keyword Arguments:
         avID {int} -- AV号 (default: {None})
         bvID {str} -- BV号 (default: {""})
-    
+
     Returns:
         [type] -- [description]
     '''
     config = api[22]
     method = config['method']
     url = api['link']
-    if(bvID!=None):
+    if(bvID != None):
         param = {
-            'aid':avID
+            'aid': avID
         }
-    return requests(method=method, url=url,param=param)
+    return requests(method=method, url=url, param=param)
 
-def isFavorite(avID=None,bvID=""):
+
+def isFavorite(avID=None, bvID=""):
     """视频是否收藏
-    
+
     [description]
-    
+
     Keyword Arguments:
         avID {int} -- 视频AV号 (default: {None})
         bvID {str} -- 视频BV号 (default: {""})
-    
+
     Returns:
         {json} -- 返回的JSON数据
     """
@@ -489,9 +494,10 @@ def isFavorite(avID=None,bvID=""):
     method = config['method']
     url = api['link']
     param = {
-        'aid':avID
+        'aid': avID
     }
-    return requests(method=method, url=url,param=param)
+    return requests(method=method, url=url, param=param)
+
 
 def getRelations(userID=0):
     config = api[29]
@@ -501,18 +507,18 @@ def getRelations(userID=0):
         "fids": userID,
         "jsonp": "jsonp"
     }
-    return requests(method=method,url=url,param=param)
+    return requests(method=method, url=url, param=param)
 
 
-def vedioTagDelete(AID=0,tagID=0):
+def vedioTagDelete(AID=0, tagID=0):
     '''需要在登陆情况下操作
-    
+
     删除标签
-    
+
     Keyword Arguments:
         AID {number} -- 视频的aid号 (default: {0})
         tagID {number} -- 标签的ID (default: {0})
-    
+
     Returns:
         [type] -- [description]
     '''
@@ -524,21 +530,22 @@ def vedioTagDelete(AID=0,tagID=0):
         "tag_id": tagID,
         "jsonp": "jsonp"
     }
-    return requests(method=method,url=url,param=param)
+    return requests(method=method, url=url, param=param)
 
 
-def getDanmuku(cid:int=None):
+def getDanmuku(cid: int=None):
     config = api[31]
     url = config['link'].format(cid=cid)
     method = config['method']
-    data = parserDamuku.Danmaku(requests(method=method,url=url))
+    data = parserDamuku.Danmaku(requests(method=method, url=url))
     return data
+
 
 class Vedio(object):
     """docstring for Vedio"""
     avid = 0
     bvid = ''
-    cover=''
+    cover = ''
     tagID = 0
     title = ''
     oid = 0
@@ -551,10 +558,11 @@ class Vedio(object):
     share = 0
     view = 0
     reply = 0
-    def __init__(self,vedioID=''):
-        if(vedioID!=''):
+
+    def __init__(self, vedioID=''):
+        if(vedioID != ''):
             data = getVedioInfo(bvid=vedioID)
-            if(data!=None):
+            if(data != None):
                 data = data['data']
                 self.avid = data['aid']
                 self.bvid = data['bvid']
@@ -571,13 +579,19 @@ class Vedio(object):
                 self.share = data['stat']['share']
                 self.like = data['stat']['like']
                 self.reply = data['stat']['reply']
+
     def getVedio(self):
         return self
+
     def getUser(self):
         return User(self.owner)
+
     def getDamku(self):
         return getDanmuku(self.cid)
+
+
 class Article:
+
     def __init__(self,):
         pass
 
@@ -588,15 +602,15 @@ class User(object):
     name:str = ''
     sex:str = ''
     face:str = ''
-    birthday:str =''
+    birthday:str = ''
     rank:int = 0
     level:int = 0
     vip:bool = False
 
-    def __init__(self,userid=0):
-        if(userid!=0):
+    def __init__(self, userid=0):
+        if(userid != 0):
             data = getUserInfor(userid=userid)
-            if(data!=None):
+            if(data != None):
                 data = data['data']
                 self.mid = data['mid']
                 self.name = data['name']
@@ -606,4 +620,3 @@ class User(object):
                 self.rank = data['rank']
                 self.face = data['face']
                 self.vip = bool(data['vip']['type'])
-
