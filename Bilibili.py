@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-23 00:07:00
+# @Last Modified time: 2020-05-23 00:14:45
 
 import json,time
 import urllib3
@@ -612,6 +612,15 @@ class Vedio(object):
             'plat':'1'
         }
         return requests(method,url,param)
+
+    def isCoins(self):
+        return isCoins(avID=self.avid)
+
+    def isFavorite(self):
+        return isFavorite(avID=self.avid)
+
+    def isLike(self):
+        return isLike(avID=self.avid)
 
 
 class Article:
