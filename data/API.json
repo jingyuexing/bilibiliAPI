@@ -153,5 +153,10 @@
     "link":"https://api.bilibili.com/x/tag/archive/del",
     "method":"POST",
     "comment":""
+  },
+  {
+    "link":"http://comment.bilibili.com/{cid}.xml",
+    "method":"GET",
+    "comment":"获取实时弹幕"
   }
 ]

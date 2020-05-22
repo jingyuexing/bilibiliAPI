@@ -2,36 +2,36 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-04 04:15:15
+# @Last Modified time: 2020-05-20 23:45:18
 
 import json
 import urllib3
-from damuku import parserDamuku
+from .damuku import parserDamuku
 http = urllib3.PoolManager()
 
 dataType = {
-    "xml":"application/xml",
-    "html":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
-    "xhtml":"application/xhtml+xml",
-    "json":"application/json, text/plain, */*",
-    "text":"text/plain",
-    "webp":"image/webp",
-    "png":"image/apng"
+    "xml": "application/xml",
+    "html": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+    "xhtml": "application/xhtml+xml",
+    "json": "application/json, text/plain, */*",
+    "text": "text/plain",
+    "webp": "image/webp",
+    "png": "image/apng"
 }
 head = {
-  "Sec-Fetch-Mode":"no-cors",
-  "Cache-Control":"max-age=0",
-  "Accept-Encoding":"gzip, deflate, br",
-  "Accept-Language":"zh-CN,zh;q=0.9",
-  "Accept":"application/json, text/plain, */*",
-  "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
+  "Sec-Fetch-Mode": "no-cors",
+  "Cache-Control": "max-age=0",
+  "Accept-Encoding": "gzip, deflate, br",
+  "Accept-Language": "zh-CN,zh;q=0.9",
+  "Accept": "application/json, text/plain, */*",
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 }
 with open("data/API.json", "r", encoding='utf-8') as file:
     api = json.loads(file.read())
     file.close()
 
 
-def requests(method='',url='',param={}):
+def requests(method='', url='', param={}):
     '''
   发起请求
   =======
@@ -406,6 +406,7 @@ def searchUserVedio():
 
 
 def sendDamuku():
+    
     pass
 
 
@@ -452,6 +453,17 @@ def isLike(avID=None,bvID=""):
 
 
 def isCoins(avID=None,bvID=""):
+    '''是否投币
+    
+    [description]
+    
+    Keyword Arguments:
+        avID {int} -- AV号 (default: {None})
+        bvID {str} -- BV号 (default: {""})
+    
+    Returns:
+        [type] -- [description]
+    '''
     config = api[22]
     method = config['method']
     url = api['link']
@@ -462,6 +474,17 @@ def isCoins(avID=None,bvID=""):
     return requests(method=method, url=url,param=param)
 
 def isFavorite(avID=None,bvID=""):
+    """视频是否收藏
+    
+    [description]
+    
+    Keyword Arguments:
+        avID {int} -- 视频AV号 (default: {None})
+        bvID {str} -- 视频BV号 (default: {""})
+    
+    Returns:
+        {json} -- 返回的JSON数据
+    """
     config = api[23]
     method = config['method']
     url = api['link']
@@ -504,7 +527,15 @@ def vedioTagDelete(AID=0,tagID=0):
     return requests(method=method,url=url,param=param)
 
 
+def getDanmuku(cid:int=None):
+    config = api[31]
+    url = config['link'].format(cid=cid)
+    method = config['method']
+    data = parserDamuku.Danmaku(requests(method=method,url=url))
+    return data
+
 class Vedio(object):
+    """docstring for Vedio"""
     avid = 0
     bvid = ''
     cover=''
@@ -520,7 +551,6 @@ class Vedio(object):
     share = 0
     view = 0
     reply = 0
-    """docstring for Vedio"""
     def __init__(self,vedioID=''):
         if(vedioID!=''):
             data = getVedioInfo(bvid=vedioID)
@@ -545,7 +575,8 @@ class Vedio(object):
         return self
     def getUser(self):
         return User(self.owner)
-
+    def getDamku(self):
+        return getDanmuku(self.cid)
 class Article:
     def __init__(self,):
         pass
@@ -575,3 +606,4 @@ class User(object):
                 self.rank = data['rank']
                 self.face = data['face']
                 self.vip = bool(data['vip']['type'])
+

@@ -2,7 +2,7 @@
 # @Author: Jingyuexing
 # @Date:   2020-04-30 15:48:44
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-02 00:12:28
+# @Last Modified time: 2020-05-20 23:57:53
 
 import xml.etree.ElementTree as ET
 
@@ -13,16 +13,17 @@ class Danmaku:
     ```
     第一个 是stime 0 然后是mode 1  再是size 2 再是color 3 再是date 4 再是pool 5 再是uhash 6 再是dmid 7
     """
-    color:int
-    date:int
-    dmid:int
-    pool:int
-    stime:float
-    mode:int
-    text:str
-    uhash:str
-    size:int
-    data:list
+    __color__:int = None
+    __date__:int = None
+    __dmid__:int = None
+    __pool__:int = None
+    __stime__:float = None
+    __mode__:int = None
+    __text__:str = ''
+    __uhash__:str = ''
+    __size__:int = None
+    data:list = []
+
     def __init__(self,data):
         if(data!=''):
             root = ET.parse(data)
@@ -39,16 +40,17 @@ class Danmaku:
                 tempdict['mode'] = int(attribList[1])
                 tempdict['stime'] = float(attribList[0])
                 self.data.append(tempdict)
-    def getDanmu(self,index=0):
+
+    def getDanmu(self, index=0):
         data = self.data[index]
         danmu = Danmaku("")
-        danmu.uhash = data['uhash']
-        danmu.date = data['date']
-        danmu.pool = data['pool']
-        danmu.size = data['size']
-        danmu.dmid = data['dmid']
-        danmu.mode = data['mode']
-        danmu.stime = data['stime']
-        danmu.color = data['color']
+        danmu.__uhash__ = data['uhash']
+        danmu.__date__ = data['date']
+        danmu.__pool__ = data['pool']
+        danmu.__size__ = data['size']
+        danmu.__dmid__ = data['dmid']
+        danmu.__mode__ = data['mode']
+        danmu.__stime__ = data['stime']
+        danmu.__color__ = data['color']
         return danmu
 

@@ -2,13 +2,13 @@
 max-line-length = 255
 
 ignore=
-    D1,
-    W503
-    W293
-    W291
+    D1
     E121
+    E221
+    E225
     E231
-
+    W391
+    E902
 exclude=
     .tox
     __pycache__
@@ -18,7 +18,3 @@ exclude=
     .ts
     .js
     .md
-
-filename=
-    Bilibili.py
-    damuku/parserDamuku.py
