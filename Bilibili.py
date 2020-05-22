@@ -2,9 +2,9 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-05-22 19:44:53
+# @Last Modified time: 2020-05-22 21:19:26
 
-import json
+import json,time
 import urllib3
 from damuku import parserDamuku
 http = urllib3.PoolManager()
@@ -588,6 +588,35 @@ class Vedio(object):
 
     def getDamku(self):
         return getDanmuku(self.cid)
+
+    def sendDamku(self,color:str = '',fontsize:int = 25,mode:int = 1,pool:int = 1,content:str = ''):
+        '''发送弹幕
+        [description]
+        Keyword Arguments:
+            color {str} -- 弹幕颜色 (default: {''})
+            fontsize {int} -- 字体大小 (default: {25})
+            mode {int} -- 1 滚动 |5 顶部 |4 底部 (default: {1})
+            pool {int} -- 字幕弹幕 1 是 0否 (default: {1})
+            content {str} -- 弹幕内容 (default: {''})
+        Returns:
+            [type] -- [description]
+        '''
+        config = api[24]
+        method = config['method']
+        url    = config['link']
+        param = {
+            'type':1,
+            'oid':self.oid,
+            'bvid':self.bvid,
+            'msg':content,
+            'progress':int(time.time()),
+            'color':color,
+            'fontsize':'',
+            'pool':'',
+            'mode':'',
+            'plat':'1'
+        }
+        return requests(method,url,param)
 
 
 class Article:
