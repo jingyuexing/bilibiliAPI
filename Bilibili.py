@@ -653,3 +653,4 @@ class User(object):
                 self.rank = data['rank']
                 self.face = data['face']
                 self.vip = bool(data['vip']['type'])
+         ##写的真好
