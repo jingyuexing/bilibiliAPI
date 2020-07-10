@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # @Author: Jingyuexing
 # @Date:   2020-04-30 15:48:44
-# @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-20 23:57:53
+# @Last Modified by:   Admin
+# @Last Modified time: 2020-07-03 17:51:34
 
 import xml.etree.ElementTree as ET
+
 
 class Danmaku:
     """弹幕类
@@ -24,8 +25,8 @@ class Danmaku:
     __size__:int = None
     data:list = []
 
-    def __init__(self,data):
-        if(data!=''):
+    def __init__(self, data):
+        if(data != ''):
             root = ET.parse(data)
             rootEle = root.getroot()
             for ele in rootEle.findall('d'):
@@ -54,3 +55,27 @@ class Danmaku:
         danmu.__color__ = data['color']
         return danmu
 
+    def getDanmuUser(self, content=''):
+        '''获取弹幕发送着uid
+
+        [description]
+
+        Keyword Arguments:
+            content {str} -- [description] (default: {''})
+
+        Returns:
+            [int] -- [uid]
+        '''
+        import binascii
+        if content != '':
+            for i in range(1, 100000000):
+                if str(binascii.crc32(str(i).encode("utf-8"))) == self.__uhash__:
+                    return i
+        else:
+            for ele in self.data:
+                if(ele['content'] == content):
+                    self.__uhash__ = ele['uhash']
+                    return self.getDanmuUser()
+
+    def getElement(self, index):
+        return self.data[index]

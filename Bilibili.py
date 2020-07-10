@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-05-23 00:14:45
+# @Last Modified by:   Admin
+# @Last Modified time: 2020-07-10 17:24:03
 
-import json,time
+import json
+import time
 import urllib3
 from damuku import parserDamuku
 http = urllib3.PoolManager()
@@ -94,7 +95,7 @@ def getUserInfor(userid=0):
     method = config["method"]
     url = config["link"]
     parma = {
-        "mid":str(userid),
+        "mid": str(userid),
         "jsonp": "jsonp"
     }
     return requests(method=method, url=url, param=parma)
@@ -113,7 +114,8 @@ def getFanList(userID=0, pageNumber=1, limit=20):
     Returns:
       {dict} -- 返回的数据
     '''
-    config:dict = api[3]
+    config:
+        dict = api[3]
     method = config['method']
     url = config['link']
     parma = {
@@ -584,7 +586,7 @@ class Vedio(object):
     def getDamku(self):
         return getDanmuku(self.cid)
 
-    def sendDamku(self,color:str = '#ffffff',fontsize:int = 25,mode:int = 1,pool:int = 1,content:str = ''):
+    def sendDamku(self, color: str = '#ffffff', fontsize: int = 25, mode: int = 1, pool: int = 1, content: str = ''):
         '''发送弹幕
         [description]
         Keyword Arguments:
@@ -598,20 +600,20 @@ class Vedio(object):
         '''
         config = api[24]
         method = config['method']
-        url    = config['link']
+        url = config['link']
         param = {
-            'type':1,
-            'oid':self.oid,
-            'bvid':self.bvid,
-            'msg':content,
-            'progress':int(time.time()),
-            'color':color,
-            'fontsize':fontsize,
-            'pool':pool,
-            'mode':mode,
-            'plat':'1'
+            'type': 1,
+            'oid': self.oid,
+            'bvid': self.bvid,
+            'msg': content,
+            'progress': int(time.time()),
+            'color': color,
+            'fontsize': fontsize,
+            'pool': pool,
+            'mode': mode,
+            'plat': '1'
         }
-        return requests(method,url,param)
+        return requests(method, url, param)
 
     def isCoins(self):
         return isCoins(avID=self.avid)
