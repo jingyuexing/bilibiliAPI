@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-07-10 21:19:12
+# @Last Modified time: 2020-07-14 02:26:48
 
 import json
 import time
@@ -576,8 +576,26 @@ class Vedio(object):
                 self.like = data['stat']['like']
                 self.reply = data['stat']['reply']
 
-    def getVedio(self):
-        return self
+    def getVedio(self,qn=0):
+        """获取视频的真实链接
+
+        [description]
+
+        Keyword Arguments:
+            qn {number} -- 分页数 (default: {0})
+
+        Returns:
+            [type] -- [description]
+        """
+        config = api[33]
+        url = config['link']
+        method = config['method']
+        param = {
+            'bvid':self.bvid,
+            'cid':self.oid,
+            'qn':qn
+        }
+        return requests(url=url, method=method, param=param)
 
     def getUser(self):
         return User(self.owner)
