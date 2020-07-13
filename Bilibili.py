@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-07-14 02:26:48
+# @Last Modified time: 2020-07-14 02:29:02
 
 import json
 import time
@@ -587,7 +587,7 @@ class Vedio(object):
         Returns:
             [type] -- [description]
         """
-        config = api[33]
+        config = api[32]
         url = config['link']
         method = config['method']
         param = {
