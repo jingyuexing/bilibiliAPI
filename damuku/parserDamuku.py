@@ -2,9 +2,9 @@
 # @Author: Jingyuexing
 # @Date:   2020-04-30 15:48:44
 # @Last Modified by:   Admin
-# @Last Modified time: 2020-07-03 17:51:34
+# @Last Modified time: 2020-07-14 00:58:37
 
-import xml.etree.ElementTree as ET
+import xml.etree.cElementTree as cET
 
 
 class Danmaku:
@@ -23,13 +23,13 @@ class Danmaku:
     __text__:str = ''
     __uhash__:str = ''
     __size__:int = None
+    __content__:str = ""
     data:list = []
 
     def __init__(self, data):
         if(data != ''):
-            root = ET.parse(data)
-            rootEle = root.getroot()
-            for ele in rootEle.findall('d'):
+            elements = cET.fromstring(data).findall("d")
+            for ele in elements:
                 tempdict = {}
                 attribList = ele.attrib['p'].split(',')
                 tempdict['uhash'] = attribList[6]
@@ -40,6 +40,7 @@ class Danmaku:
                 tempdict['dmid'] = attribList[7]
                 tempdict['mode'] = int(attribList[1])
                 tempdict['stime'] = float(attribList[0])
+                tempdict["content"] = ele.text
                 self.data.append(tempdict)
 
     def getDanmu(self, index=0):
@@ -53,6 +54,7 @@ class Danmaku:
         danmu.__mode__ = data['mode']
         danmu.__stime__ = data['stime']
         danmu.__color__ = data['color']
+        danmu.__content__ = data['content']
         return danmu
 
     def getDanmuUser(self, content=''):

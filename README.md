@@ -88,6 +88,41 @@ getBlackList(btype:None,otype:int,pn:int)
 getBlockedInfo(userID:int)
 ```
 
+* 获取文章信息
+
+```py
+getArticleInfo(articleID=0)
+```
+
+* 获取在线人数
+
+```py
+getOnlineNumber()
+```
+
+* 获取
+
+```py
+getUserInfoCard(userID)
+```
+
+* 发送信息(聊天)
+
+```py
+sendMsg(yourID, elseID, content='')
+```
+
+* 视频是否投过币
+
+```py
+isCoins(avID=None, bvID="")
+```
+
+* 视频是否收藏过
+
+```py
+isFavorite(avID=None, bvID="")
+```
 
 ## LICENSE
 

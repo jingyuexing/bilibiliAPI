@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   Admin
-# @Last Modified time: 2020-07-10 17:24:03
+# @Last Modified by:   Jingyuexing
+# @Last Modified time: 2020-07-10 21:19:12
 
 import json
 import time
@@ -114,8 +114,7 @@ def getFanList(userID=0, pageNumber=1, limit=20):
     Returns:
       {dict} -- 返回的数据
     '''
-    config:
-        dict = api[3]
+    config:dict = api[3]
     method = config['method']
     url = config['link']
     parma = {
@@ -251,7 +250,7 @@ def uploadImage(img: str = '', imgType: str = "daily"):
         'category': imgType
     }
     data = requests(method=method, url=url, param=param)
-    if(data != None and data['message'] == 'success'):
+    if(data is not None and data['message'] == 'success'):
         return data['data']
 
 
@@ -655,3 +654,4 @@ class User(object):
                 self.rank = data['rank']
                 self.face = data['face']
                 self.vip = bool(data['vip']['type'])
+
