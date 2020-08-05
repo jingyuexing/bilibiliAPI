@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-07-14 02:29:02
+# @Last Modified by:   Admin
+# @Last Modified time: 2020-07-14 18:37:22
 
 import json
 import time
@@ -672,4 +672,3 @@ class User(object):
                 self.rank = data['rank']
                 self.face = data['face']
                 self.vip = bool(data['vip']['type'])
-
