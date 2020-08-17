@@ -90,83 +90,88 @@
     "method": "GET"
   },
   {
-    "link":"https://api.bilibili.com/x/web-interface/online",
-    "method":"GET",
-    "comment":"获取在线人数"
+    "comment": "获取在线人数",
+    "link": "https://api.bilibili.com/x/web-interface/online",
+    "method": "GET"
   },
   {
-    "link":"https://api.vc.bilibili.com/web_im/v1/web_im/send_msg",
-    "method":"POST",
-    "comment":"给用户发送消息"
+    "comment": "给用户发送消息",
+    "link": "https://api.vc.bilibili.com/web_im/v1/web_im/send_msg",
+    "method": "POST"
   },
   {
-    "link":"https://api.bilibili.com/x/web-interface/archive/related",
-    "method":"GET",
-    "comment":"获取关联视频"
+    "comment": "获取关联视频",
+    "link": "https://api.bilibili.com/x/web-interface/archive/related",
+    "method": "GET"
   },
   {
-    "link":"https://api.bilibili.com/x/web-interface/archive/has/like",
-    "method":"GET",
-    "comment":"视频是否点赞"
+    "comment": "视频是否点赞",
+    "link": "https://api.bilibili.com/x/web-interface/archive/has/like",
+    "method": "GET"
   },
   {
-    "link":"https://api.bilibili.com/x/web-interface/archive/coins",
-    "method":"GET",
-    "comment":"视频是否投币"
+    "comment": "视频是否投币",
+    "link": "https://api.bilibili.com/x/web-interface/archive/coins",
+    "method": "GET"
   },
   {
-    "link":"https://api.bilibili.com/x/v2/fav/video/favoured",
-    "method":"GET",
-    "comment":"视频是否收藏"
+    "comment": "视频是否收藏",
+    "link": "https://api.bilibili.com/x/v2/fav/video/favoured",
+    "method": "GET"
   },
   {
-    "link":"https://api.bilibili.com/x/v2/dm/post",
-    "method":"POST",
-    "comment":"发送弹幕"
+    "comment": "发送弹幕",
+    "link": "https://api.bilibili.com/x/v2/dm/post",
+    "method": "POST"
   },
   {
-    "link":"https://api.bilibili.com/x/space/arc/search",
-    "method":"GET",
-    "comment":"搜索用户视频"
+    "comment": "搜索用户视频",
+    "link": "https://api.bilibili.com/x/space/arc/search",
+    "method": "GET"
   },
   {
-    "link":"https://api.bilibili.com/x/space/myinfo",
-    "method":"GET",
-    "command":"获取自己的信息"
+    "command": "获取自己的信息",
+    "link": "https://api.bilibili.com/x/space/myinfo",
+    "method": "GET"
   },
   {
-    "link":"https://api.bilibili.com/x/relation/stat",
-    "method":"",
-    "comment":"关注数,粉丝数"
+    "comment": "关注数,粉丝数",
+    "link": "https://api.bilibili.com/x/relation/stat",
+    "method": ""
   },
   {
-    "link":"https://api.bilibili.com/x/web-interface/card",
-    "method":"GET",
-    "comment":"用户资料卡"
+    "comment": "用户资料卡",
+    "link": "https://api.bilibili.com/x/web-interface/card",
+    "method": "GET"
   },
   {
-    "link":"https://api.bilibili.com/x/relation/relations",
-    "method":"GET",
-    "comment":""
+    "comment": "",
+    "link": "https://api.bilibili.com/x/relation/relations",
+    "method": "GET"
   },
   {
-    "link":"https://api.bilibili.com/x/tag/archive/del",
-    "method":"POST",
-    "comment":""
+    "comment": "",
+    "link": "https://api.bilibili.com/x/tag/archive/del",
+    "method": "POST"
   },
   {
-    "link":"http://comment.bilibili.com/{cid}.xml",
-    "method":"GET",
-    "comment":"获取实时弹幕"
+    "comment": "获取实时弹幕",
+    "link": "http://comment.bilibili.com/{cid}.xml",
+    "method": "GET"
   },
   {
-    "link":"http://api.bilibili.com/x/player/playurl",
-    "method":"GET",
-    "comment":"获取视频真实链接"
+    "comment": "获取视频真实链接",
+    "link": "http://api.bilibili.com/x/player/playurl",
+    "method": "GET"
   },
   {
-    "link":"https://api.bilibili.com/x/dm/filter/user?jsonp=jsonp",
-    "method":"GET",
-    "comment":"用户屏蔽规则"
+    "comment": "分P列表",
+    "link": "https://api.bilibili.com/x/player/pagelist",
+    "method": "GET"
+  },
+  {
+    "comment": "用户屏蔽规则",
+    "link": "https://api.bilibili.com/x/dm/filter/user?jsonp=jsonp",
+    "method": "GET"
   }
 ]

@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   Admin
-# @Last Modified time: 2020-07-14 18:37:22
+# @Last Modified by:   Jingyuexing
+# @Last Modified time: 2020-08-17 20:20:32
+
+
+#########################################
+# @author jingyuexing
+# @see https://github.com/jingyuexing/bilibiliAPI
+# @license MIT
 
 import json
 import time
@@ -27,8 +33,11 @@ head = {
     "Accept": "application/json, text/plain, */*",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 }
+
+API = None
+
 with open("data/API.json", "r", encoding='utf-8') as file:
-    api = json.loads(file.read())
+    API = json.loads(file.read())
     file.close()
 
 
@@ -40,9 +49,9 @@ def requests(method='', url='', param={}):
     [description]
 
     Keyword Arguments:
-        method {str} -- 方式(POST|GET|DELETE) (default: {''})    
-        url {str} -- 链接 (default: {''})    
-        parma {dict} -- 参数 (default: {{}})    
+        method {str} -- 方式(POST|GET|DELETE) (default: {''})
+        url {str} -- 链接 (default: {''})
+        parma {dict} -- 参数 (default: {{}})
 
     Returns:
         {dict} -- 返回数据
@@ -67,7 +76,7 @@ def getRank(rankID=0, day=3, typer=1, arc_type=0):
     Returns:
         [type] -- [description]
     '''
-    config = api[0]
+    config = API[0]
     method = config['method']
     url = config['link']
     parma = {
@@ -91,11 +100,11 @@ def getUserInfor(userid=0):
     Returns:
         [type] -- [description]
     '''
-    config:dict = api[2]
+    config:dict = API[2]
     method = config["method"]
     url = config["link"]
     parma = {
-        "mid": str(userid),
+        "mid":str(userid),
         "jsonp": "jsonp"
     }
     return requests(method=method, url=url, param=parma)
@@ -114,7 +123,7 @@ def getFanList(userID=0, pageNumber=1, limit=20):
     Returns:
       {dict} -- 返回的数据
     '''
-    config:dict = api[3]
+    config:dict = API[3]
     method = config['method']
     url = config['link']
     parma = {
@@ -142,7 +151,7 @@ def getUserVedioList(userID=0, limit=50, tagID=0, pageNumber=1, order='pubdate')
     Returns:
         {json} -- 返回的数据
     '''
-    config = api[5]
+    config = API[5]
     method = config['method']
     url = config['link']
     parma = {
@@ -174,7 +183,7 @@ def getHistoryMsg(tp=1, oid=0, date=0):
     ```
 
     '''
-    config = api[7]
+    config = API[7]
     method = config['method']
     url = config['link']
     parma = {
@@ -195,7 +204,7 @@ def getVedioStat(vedioID=0):
     Keyword Arguments:
         vedioID {number} -- [description] (default: {0})
     '''
-    config = api[8]
+    config = API[8]
     url = config['link']
     method = config['method']
     param = {
@@ -216,7 +225,7 @@ def getVedioInfo(bvid=0, avid=0):
     Returns:
         {json} -- 服务器返回的数据
     '''
-    config = api[7]
+    config = API[7]
     url = config['link']
     method = config['method']
     if bvid != '':
@@ -242,7 +251,7 @@ def uploadImage(img: str = '', imgType: str = "daily"):
     Returns:
         {dict} -- 返回JSON数据
     '''
-    config = api[9]
+    config = API[9]
     method = config['method']
     url = config['link']
     param = {
@@ -265,7 +274,7 @@ def getRoomInfo(userID=0):
     Returns:
         {dict} -- 返回信息
     '''
-    config = api[10]
+    config = API[10]
     method = config['method']
     url = config['link']
     param = {
@@ -275,7 +284,7 @@ def getRoomInfo(userID=0):
 
 
 def getLoginUrl():
-    config = api[11]
+    config = API[11]
     method = config['method']
     url = config['link']
     return requests(method=method, url=url)
@@ -292,7 +301,7 @@ def checkNickName(nickName: str = ""):
     Returns:
         {dict} -- 返回信息
     '''
-    config = api[13]
+    config = API[13]
     method = config['method']
     url = config['link']
     param = {
@@ -314,7 +323,7 @@ def getFollowsList(userID=0, limit=50, pageNumber=1):
     Returns:
         [type] -- [description]
     '''
-    config = api[14]
+    config = API[14]
     url = config['link']
     method = config['method']
     param = {
@@ -326,7 +335,7 @@ def getFollowsList(userID=0, limit=50, pageNumber=1):
 
 
 def getBlackList(btype=None, otype=0, pageNumber=1):
-    config = api[16]
+    config = API[16]
     method = config['method']
     url = config['link']
     param = {
@@ -348,7 +357,7 @@ def getBlockedInfo(userID=0):
     Returns:
         {dict} -- JSON
     '''
-    config = api[17]
+    config = API[17]
     method = config['method']
     url = config['link']
     param = {
@@ -368,7 +377,7 @@ def getArticleInfo(articleID=0):
     Returns:
         {json} -- 返回的数据
     '''
-    config = api[15]
+    config = API[15]
     method = config['method']
     url = config['link']
     param = {
@@ -382,7 +391,7 @@ def getOnlineNumber():
     '''获取在线人数
 
     '''
-    config = api[18]
+    config = API[18]
     method = config['method']
     url = config['link']
     return requests(method=method, url=url)
@@ -393,7 +402,7 @@ def getMyselfInfo():
 
 
 def getUserInfoCard(userID):
-    config = api[28]
+    config = API[28]
     url = config['link']
     method = config['method']
     param = {
@@ -425,7 +434,7 @@ def sendMsg(yourID, elseID, content=''):
     Returns:
         {json} -- 回应消息
     '''
-    config = api[19]
+    config = API[19]
     method = config['method']
     url = config['link']
     param = {
@@ -442,9 +451,9 @@ def sendMsg(yourID, elseID, content=''):
 
 
 def isLike(avID=None, bvID=""):
-    config = api[21]
+    config = API[21]
     method = config['method']
-    url = api['link']
+    url = API['link']
     if(avID != None):
         param = {
             'aid': avID
@@ -464,9 +473,9 @@ def isCoins(avID=None, bvID=""):
     Returns:
         [type] -- [description]
     '''
-    config = api[22]
+    config = API[22]
     method = config['method']
-    url = api['link']
+    url = API['link']
     if(bvID != None):
         param = {
             'aid': avID
@@ -486,9 +495,9 @@ def isFavorite(avID=None, bvID=""):
     Returns:
         {json} -- 返回的JSON数据
     """
-    config = api[23]
+    config = API[23]
     method = config['method']
-    url = api['link']
+    url = API['link']
     param = {
         'aid': avID
     }
@@ -496,7 +505,7 @@ def isFavorite(avID=None, bvID=""):
 
 
 def getRelations(userID=0):
-    config = api[29]
+    config = API[29]
     url = config['link']
     method = config['method']
     param = {
@@ -518,7 +527,7 @@ def vedioTagDelete(AID=0, tagID=0):
     Returns:
         [type] -- [description]
     '''
-    config = api[30]
+    config = API[30]
     url = config['link']
     method = config['method']
     param = {
@@ -530,7 +539,7 @@ def vedioTagDelete(AID=0, tagID=0):
 
 
 def getDanmuku(cid: int=None):
-    config = api[31]
+    config = API[31]
     url = config['link'].format(cid=cid)
     method = config['method']
     data = parserDamuku.Danmaku(requests(method=method, url=url))
@@ -560,23 +569,23 @@ class Vedio(object):
             data = getVedioInfo(bvid=vedioID)
             if(data != None):
                 data = data['data']
-                self.avid = data['aid']
-                self.bvid = data['bvid']
-                self.tag = data['tname']
-                self.tagID = data['tid']
-                self.title = data['title']
-                self.cover = data['pic']
-                self.oid = data['cid']
-                self.owner = data['owner']['mid']
-                self.createTime = data['ctime']
-                self.view = data['stat']['view']
-                self.favorite = data['stat']['favorite']
-                self.coin = data['stat']['coin']
-                self.share = data['stat']['share']
-                self.like = data['stat']['like']
+                self.avid = data['aid']     # avid号
+                self.bvid = data['bvid']    # bvid号
+                self.tag = data['tname']    # 标签
+                self.tagID = data['tid']    # 标签id
+                self.title = data['title']  # 标题
+                self.cover = data['pic']    # 封面
+                self.oid = data['cid']      # 分P号
+                self.owner = data['owner']['mid']   # 视频所有者
+                self.createTime = data['ctime']     # 视频创建时间=上传时间
+                self.view = data['stat']['view']    # 观看数
+                self.favorite = data['stat']['favorite']    # 收藏数
+                self.coin = data['stat']['coin']        # 投币数
+                self.share = data['stat']['share']  # 分享数
+                self.like = data['stat']['like']    # 点赞数
                 self.reply = data['stat']['reply']
 
-    def getVedio(self,qn=0):
+    def getVedio(self, qn=0):
         """获取视频的真实链接
 
         [description]
@@ -587,20 +596,34 @@ class Vedio(object):
         Returns:
             [type] -- [description]
         """
-        config = api[32]
+        config = API[32]
         url = config['link']
         method = config['method']
         param = {
-            'bvid':self.bvid,
-            'cid':self.oid,
-            'qn':qn
+            'bvid': self.bvid,
+            'cid': self.oid,
+            'qn': qn
         }
         return requests(url=url, method=method, param=param)
 
     def getUser(self):
+        '''获取视频作者信息
+
+        [description]
+
+        Returns:
+            [type] -- [description]
+        '''
         return User(self.owner)
 
     def getDamku(self):
+        '''获取弹幕
+
+        [description]
+
+        Returns:
+            [type] -- [description]
+        '''
         return getDanmuku(self.cid)
 
     def sendDamku(self, color: str = '#ffffff', fontsize: int = 25, mode: int = 1, pool: int = 1, content: str = ''):
@@ -615,7 +638,7 @@ class Vedio(object):
         Returns:
             [type] -- [description]
         '''
-        config = api[24]
+        config = API[24]
         method = config['method']
         url = config['link']
         param = {
@@ -640,6 +663,15 @@ class Vedio(object):
 
     def isLike(self):
         return isLike(avID=self.avid)
+
+    def pageList(self):
+        config = API[33]
+        param = {
+            'aid':self.avid
+        }
+        method = config['method']
+        link = config['link']
+        return requests(method,link,param)
 
 
 class Article:
