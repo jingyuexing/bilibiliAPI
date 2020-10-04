@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-08-17 20:20:32
+# @Last Modified by:   jingyuexing
+# @Last Modified time: 2020-10-04 22:48:28
 
 
 #########################################
@@ -14,6 +14,9 @@ import json
 import time
 import urllib3
 from damuku import parserDamuku
+
+COOKIES = ''
+
 http = urllib3.PoolManager()
 
 dataType = {
@@ -41,6 +44,38 @@ with open("data/API.json", "r", encoding='utf-8') as file:
     file.close()
 
 
+class Cookies:
+    """docstring for Cookies"""
+    cookie = ""
+    query = {}
+
+    def __init__(self, cookies=''):
+        self.parserCookies(cookies=cookies)
+        self.cookie = self.toString()
+
+    def setCookies(self, key, value):
+        self.query[key] = value
+        self.cookie = self.toString()
+
+    def getCookies(self, key):
+        return self.query[key]
+
+    def getCookiesAll(self):
+        return self.cookie
+
+    def parserCookies(self, cookies=''):
+        cookies = cookies.replace(" ", "")
+        for x in cookies.split(";"):
+            key, value = tuple(x.split("="))
+            self.query[key] = value
+
+    def toString(self):
+        finalString = ''
+        for key in dict.keys(self.query):
+            finalString = finalString + "{}={};".format(key, self.query[key])
+        return finalString[0:-1]
+
+
 def requests(method='', url='', param={}):
     '''
     发起请求
@@ -56,9 +91,16 @@ def requests(method='', url='', param={}):
     Returns:
         {dict} -- 返回数据
     '''
+    global COOKIES
+    if(COOKIES != ""):
+        head['Cookie'] = COOKIES
     req = http.request(method=method, url=url, fields=param, headers=head)
     if (req.status == 200):
-        return json.loads(req.data.decode("utf-8"), encoding='utf-8')
+        resData = json.loads(req.data.decode("utf-8"), encoding='utf-8')
+        if(resData['Set-Cookie'] != None):
+            newCookies = Cookies(resData["Set-Cookie"])
+            COOKIES = newCookies.toString()
+        return resData
 
 
 def getRank(rankID=0, day=3, typer=1, arc_type=0):
@@ -100,11 +142,11 @@ def getUserInfor(userid=0):
     Returns:
         [type] -- [description]
     '''
-    config:dict = API[2]
+    config = API[2]
     method = config["method"]
     url = config["link"]
     parma = {
-        "mid":str(userid),
+        "mid": str(userid),
         "jsonp": "jsonp"
     }
     return requests(method=method, url=url, param=parma)
@@ -123,7 +165,7 @@ def getFanList(userID=0, pageNumber=1, limit=20):
     Returns:
       {dict} -- 返回的数据
     '''
-    config:dict = API[3]
+    config = API[3]
     method = config['method']
     url = config['link']
     parma = {
@@ -366,27 +408,6 @@ def getBlockedInfo(userID=0):
     return requests(method=method, url=url, param=param)
 
 
-def getArticleInfo(articleID=0):
-    '''获取专栏信息
-
-    [description]
-
-    Keyword Arguments:
-        articleID {number} -- 专栏id (default: {0})
-
-    Returns:
-        {json} -- 返回的数据
-    '''
-    config = API[15]
-    method = config['method']
-    url = config['link']
-    param = {
-        'id': articleID
-    }
-
-    return requests(method=method, url=url, param=param)
-
-
 def getOnlineNumber():
     '''获取在线人数
 
@@ -553,7 +574,7 @@ class Vedio(object):
     cover = ''
     tagID = 0
     title = ''
-    oid = 0
+    oid = None
     tag = ''
     owner = 0
     createTime = 0
@@ -667,29 +688,76 @@ class Vedio(object):
     def pageList(self):
         config = API[33]
         param = {
-            'aid':self.avid
+            'aid': self.avid
         }
         method = config['method']
         link = config['link']
-        return requests(method,link,param)
+        return requests(method, link, param)
 
 
 class Article:
+    like = 0
+    coin = 0
+    read = 0
+    reply = 0
+    share = 0
+    uid = 0
 
-    def __init__(self,):
+    def __init__(self, articleID=None):
+        if(not articleID):
+            data = self.getArticleInfo(articleID)
+            data = data['data']
+            self.coin = data['stats']["coin"]
+            self.like = data['stats']["like"]
+            self.read = data['stats']["view"]
+            self.reply = data['stats']["reply"]
+            self.uid = data['mid']
+
+    def getArticleInfo(self, articleID=0):
+        '''获取专栏信息
+
+        [description]
+
+        Keyword Arguments:
+            articleID {number} -- 专栏id (default: {0})
+
+        Returns:
+            {json} -- 返回的数据
+        '''
+        config = API[15]
+        method = config['method']
+        url = config['link']
+        param = {
+            'id': articleID
+        }
+
+        return requests(method=method, url=url, param=param)
+
+    def getUserInfo(self):
+        """获取文章作者信息
+
+        [description]
+
+        Returns:
+            User -- 用户
+        """
+        return User(self.uid)
+
+    def getArticleList(self):
+
         pass
 
 
 class User(object):
     """docstring for User"""
-    mid:int = 0
-    name:str = ''
-    sex:str = ''
-    face:str = ''
-    birthday:str = ''
-    rank:int = 0
-    level:int = 0
-    vip:bool = False
+    mid = 0
+    name = ''
+    sex = ''
+    face = ''
+    birthday = ''
+    rank = 0
+    level = 0
+    vip = False
 
     def __init__(self, userid=0):
         if(userid != 0):

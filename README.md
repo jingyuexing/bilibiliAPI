@@ -124,6 +124,46 @@ isCoins(avID=None, bvID="")
 isFavorite(avID=None, bvID="")
 ```
 
+```py
+vedioTagDelete(AID=0, tagID=0)
+```
+
+```py
+getDanmuku(cid: int=None)
+```
+
+Vedio 类
+```py
+Vedio(vedioID='')
+
+# method:
+# 类当中的方法
+getVedio(qn=0) #获取视频真实链接
+getUser() # 获取视频作者信息
+getDamku() #获取视频弹幕
+sendDamku(color: str = '#ffffff', fontsize: int = 25, mode: int = 1, pool: int = 1, content: str = '') #发送弹幕
+isCoins() #是否投币
+isFavorite() #是否收藏
+isLike()  #是否点赞
+pageList() # 视频分页信息
+
+```
+
+
+User类
+```
+User{
+    mid:  #用户id
+    name: #昵称
+    sex: #性别
+    face: #头像
+    birthday: #生日
+    rank: #排序
+    level: #等级
+    vip: #是否是VIP
+}
+```
+
 ## LICENSE
 
 MIT

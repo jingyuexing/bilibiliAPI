@@ -173,5 +173,10 @@
     "comment": "用户屏蔽规则",
     "link": "https://api.bilibili.com/x/dm/filter/user?jsonp=jsonp",
     "method": "GET"
+  },
+  {
+    "comment":"文章专栏(文集)",
+    "link":"http://api.bilibili.com/x/article/list/web/articles",
+    "method":"GET"
   }
 ]
