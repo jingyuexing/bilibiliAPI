@@ -129,40 +129,63 @@ vedioTagDelete(AID=0, tagID=0)
 ```
 
 ```py
-getDanmuku(cid: int=None)
+getDanmuku(cid:int=None)
 ```
 
-Vedio 类
+## Cookies 类
 ```py
-Vedio(vedioID='')
 
-# method:
-# 类当中的方法
-getVedio(qn=0) #获取视频真实链接
-getUser() # 获取视频作者信息
-getDamku() #获取视频弹幕
-sendDamku(color: str = '#ffffff', fontsize: int = 25, mode: int = 1, pool: int = 1, content: str = '') #发送弹幕
-isCoins() #是否投币
-isFavorite() #是否收藏
-isLike()  #是否点赞
-pageList() # 视频分页信息
-
+setCookies(key, value)
+getCookies(key)
+getCookiesAll()
+parserCookies(cookies='')
+toString()
 ```
 
+## Vedio 类
+|类型|名称|意义|
+|:----:|:----|----:|
+|属性|avid|av号|
+|属性|bvid|bv号|
+|属性|cover|视频封面|
+|属性|tagID|标签id|
+|属性|title|视频标题|
+|属性|oid|视频分p号|
+|属性|tag|标签|
+|属性|owner|视频拥有者|
+|属性|createTime|发布时间|
+|属性|coin|硬币数|
+|属性|like|点赞数|
+|属性|favorite|收藏数|
+|属性|share|分享数|
+|属性|view|观看数|
+|属性|reply|评论数|
+|方法|`getVedio()`|获取视频真实链接|
+|方法|`getUser()`|获取视频作者信息|
+|方法|`getDamku()`|获取弹幕|
+|方法|`sendDamku()`|发送弹幕|
+|方法|`sendDamku()`|发送弹幕|
+|方法|`isCoins()`|是否投币|
+|方法|`isFavorite()`|是否收藏|
+|方法|`isLike()`|是否点赞|
+|方法|`pageList()`|视频分P列表|
 
-User类
-```
-User{
-    mid:  #用户id
-    name: #昵称
-    sex: #性别
-    face: #头像
-    birthday: #生日
-    rank: #排序
-    level: #等级
-    vip: #是否是VIP
-}
-```
+
+## Article类
+|类型|名称|意义|
+|:----:|:----|----:|
+|属性|like|点赞数|
+|属性|coin|硬币数|
+|属性|read|阅读数|
+|属性|reply|回复数|
+|属性|share|分享数|
+|属性|uid|作者uid|
+|方法|`getArticleInfo()`|获取专栏文章信息|
+|方法|`getUserInfo()`|获取专栏作者信息|
+|方法|`getArticleList()`|获取专栏全部文章信息|
+
+
+
 
 ## LICENSE
 

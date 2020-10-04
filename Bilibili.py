@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-10-04 22:48:28
+# @Last Modified time: 2020-10-04 23:10:45
 
 
 #########################################
@@ -75,6 +75,13 @@ class Cookies:
             finalString = finalString + "{}={};".format(key, self.query[key])
         return finalString[0:-1]
 
+    def replaceCookies(self, old='', new=''):
+        oldCookies = Cookies(old)
+        newCookies = Cookies(new)
+        for key in dict.keys(newCookies.query):
+            oldCookies.setCookies(key, newCookies.getCookies(key))
+        return oldCookies.toString()
+
 
 def requests(method='', url='', param={}):
     '''
@@ -98,8 +105,8 @@ def requests(method='', url='', param={}):
     if (req.status == 200):
         resData = json.loads(req.data.decode("utf-8"), encoding='utf-8')
         if(resData['Set-Cookie'] != None):
-            newCookies = Cookies(resData["Set-Cookie"])
-            COOKIES = newCookies.toString()
+            oldCookie = Cookies(COOKIES)
+            COOKIES = oldCookie.replaceCookies(COOKIES, resData['Set-Cookie'])
         return resData
 
 
