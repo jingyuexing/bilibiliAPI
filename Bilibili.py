@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   jingyuexing
-# @Last Modified time: 2020-10-04 23:10:45
+# @Last Modified by:   Jingyuexing
+# @Last Modified time: 2020-10-05 14:06:26
 
 
 #########################################
@@ -709,6 +709,7 @@ class Article:
     reply = 0
     share = 0
     uid = 0
+    user = None
 
     def __init__(self, articleID=None):
         if(not articleID):
@@ -719,6 +720,7 @@ class Article:
             self.read = data['stats']["view"]
             self.reply = data['stats']["reply"]
             self.uid = data['mid']
+            self.user = User(self.uid)
 
     def getArticleInfo(self, articleID=0):
         '''获取专栏信息
@@ -748,11 +750,10 @@ class Article:
         Returns:
             User -- 用户
         """
-        return User(self.uid)
+        return self.user
 
-    def getArticleList(self):
-
-        pass
+    def getUserArticle(self):
+        return self.user.getArtcile()
 
 
 class User(object):
@@ -779,3 +780,45 @@ class User(object):
                 self.rank = data['rank']
                 self.face = data['face']
                 self.vip = bool(data['vip']['type'])
+
+    def getArtcile(self, pn=1, ps=12):
+        """获取文章列表
+
+        [description]
+
+        Keyword Arguments:
+            pn {number} -- 页数 (default: {1})
+            ps {number} -- 信息条数 (default: {12})
+
+        Returns:
+            json -- 返回数据
+        """
+        config = API[36]
+        url = config['link']
+        method = config['method']
+        param = {
+            "mid": self.mid,
+            "pn": pn,
+            "ps": ps,
+            "sort": "publish_time",
+            "jsonp": "jsonp"
+        }
+        return requests(method=method, url=url, param=param)
+
+    def getArticleList(self):
+        """获取用户专栏列表
+
+        [description]
+
+        Returns:
+            json -- 返回数据
+        """
+        config = API[37]
+        url = config['link']
+        method = config['method']
+        param = {
+            'mid': self.mid,
+            "sort": 0,
+            "jsonp": "jsonp"
+        }
+        return requests(method=method, url=url, param=param)
