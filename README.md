@@ -22,13 +22,14 @@ getRank(rankID:int,day:int,typer:int,arc_type:int)
 getUserInfor(userid:int):
 ```
 
-* 获取粉丝列表
+
+* 获取粉丝列表 `已经移入User`
 
 ```py
 getFanList(mid:int, pageNumber:int, limit:int)
 ```
 
-* 获取用户的视频列表
+* 获取用户的视频列表 `已经移入User`
 
 ```py
 getUserVedioList(userMID:int,limit:int,tagID:int,pageNumber:int,order:str)
@@ -189,6 +190,6 @@ toString()
 
 ## LICENSE
 
-MIT
+[MIT](LICENSE)
 
 
