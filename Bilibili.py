@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-10-05 14:06:26
+# @Last Modified time: 2020-10-09 16:41:57
 
 
 #########################################
@@ -159,60 +159,6 @@ def getUserInfor(userid=0):
         "jsonp": "jsonp"
     }
     return requests(method=method, url=url, param=parma)
-
-
-def getFanList(userID=0, pageNumber=1, limit=20):
-    '''获取粉丝列表
-
-    [description]
-
-    Keyword Arguments:
-      userID {number} -- 用户id (default: {0})
-      pageNumber {number} -- 列表页数 (default: {1})
-      limit {number} -- 信息条数 (default: {20})
-
-    Returns:
-      {dict} -- 返回的数据
-    '''
-    config = API[3]
-    method = config['method']
-    url = config['link']
-    parma = {
-        "vmid": userID,
-        "pn": pageNumber,
-        "ps": limit,
-        "order": "desc",
-        "jsonp": "jsonp"
-    }
-    return requests(method=method, url=url, fields=parma)
-
-
-def getUserVedioList(userID=0, limit=50, tagID=0, pageNumber=1, order='pubdate'):
-    '''获取用户视频列表
-
-    [description]
-
-    Keyword Arguments:
-        userID {number} -- 用户ID (default: {0})
-        limit {number} -- 限制数,能获取的视频列表条数 (default: {50})
-        tagID {number} -- 标签ID (default: {0})
-        pageNumber {number} -- 页数 (default: {1})
-        order {str} -- 未知 (default: {'pubdate'})
-
-    Returns:
-        {json} -- 返回的数据
-    '''
-    config = API[5]
-    method = config['method']
-    url = config['link']
-    parma = {
-        'mid': userID,
-        'ps': limit,
-        'pn': pageNumber,
-        'order': order,
-        'jsonp': 'jsonp'
-    }
-    return requests(method=method, url=url, parma=parma)
 
 
 def getHistoryMsg(tp=1, oid=0, date=0):
@@ -568,7 +514,7 @@ def vedioTagDelete(AID=0, tagID=0):
     return requests(method=method, url=url, param=param)
 
 
-def getDanmuku(cid: int=None):
+def getDanmuku(cid=None):
     config = API[31]
     url = config['link'].format(cid=cid)
     method = config['method']
@@ -825,6 +771,57 @@ class User(object):
         }
         return requests(method=method, url=url, param=param)
 
+    def getFanList(self, pageNumber=1, limit=20):
+        '''获取粉丝列表
+
+        [description]
+
+        Keyword Arguments:
+            userID {number} -- 用户id (default: {0})
+            pageNumber {number} -- 列表页数 (default: {1})
+            limit {number} -- 信息条数 (default: {20})
+
+        Returns:
+            {dict} -- 返回的数据
+        '''
+        config = API[3]
+        method = config['method']
+        url = config['link']
+        parma = {
+            "vmid": self.mid,
+            "pn": pageNumber,
+            "ps": limit,
+            "order": "desc",
+            "jsonp": "jsonp"
+        }
+        return requests(method=method, url=url, fields=parma)
+
+    def getUserVedioList(self,limit=50, tagID=0, pageNumber=1, order='pubdate'):
+        '''获取用户视频列表
+
+        [description]
+
+        Keyword Arguments:
+            userID {number} -- 用户ID (default: {0})
+            limit {number} -- 限制数,能获取的视频列表条数 (default: {50})
+            tagID {number} -- 标签ID (default: {0})
+            pageNumber {number} -- 页数 (default: {1})
+            order {str} -- 未知 (default: {'pubdate'})
+
+        Returns:
+            {json} -- 返回的数据
+        '''
+        config = API[5]
+        method = config['method']
+        url = config['link']
+        parma = {
+            'mid': self.mid,
+            'ps': limit,
+            'pn': pageNumber,
+            'order': order,
+            'jsonp': 'jsonp'
+        }
+        return requests(method=method, url=url, parma=parma)
 
 
 if __name__ == "__main__":
