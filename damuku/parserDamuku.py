@@ -58,7 +58,7 @@ class Danmaku:
         return danmu
 
     def getDanmuUser(self, content=''):
-        '''获取弹幕发送着uid
+        '''获取弹幕发送者uid
 
         [description]
 

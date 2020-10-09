@@ -104,7 +104,9 @@ def requests(method='', url='', param={}):
     req = http.request(method=method, url=url, fields=param, headers=head)
     if (req.status == 200):
         resData = json.loads(req.data.decode("utf-8"), encoding='utf-8')
-        if(resData['Set-Cookie'] != None):
+        _head = dict(req.headers)
+
+        if('Set-Cookie' in list(_head.keys())):
             oldCookie = Cookies(COOKIES)
             COOKIES = oldCookie.replaceCookies(COOKIES, resData['Set-Cookie'])
         return resData
@@ -822,3 +824,9 @@ class User(object):
             "jsonp": "jsonp"
         }
         return requests(method=method, url=url, param=param)
+
+
+
+if __name__ == "__main__":
+    user = User(546195)
+    print(user.face)
