@@ -124,13 +124,17 @@ isCoins(avID=None, bvID="")
 ```py
 isFavorite(avID=None, bvID="")
 ```
-
+* 删除视频上的一个标签
 ```py
 vedioTagDelete(AID=0, tagID=0)
 ```
-
+* 获取弹幕
 ```py
 getDanmuku(cid:int=None)
+```
+* 获取视频评论(在`Vedio`当中)
+```py
+getReply(self, pageNumber=1, typeis=1, sort=2)
 ```
 
 ## Cookies 类
@@ -170,6 +174,7 @@ toString()
 |方法|`isFavorite()`|是否收藏|
 |方法|`isLike()`|是否点赞|
 |方法|`pageList()`|视频分P列表|
+|方法|`getReply()`|视频评论|
 
 
 ## Article类

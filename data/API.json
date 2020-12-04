@@ -175,23 +175,28 @@
     "method": "GET"
   },
   {
-    "comment":"文章专栏(文集)",
-    "link":"http://api.bilibili.com/x/article/list/web/articles",
-    "method":"GET"
+    "comment": "文章专栏(文集)",
+    "link": "http://api.bilibili.com/x/article/list/web/articles",
+    "method": "GET"
   },
   {
-    "comment":"获取用户文章",
-    "link":"https://api.bilibili.com/x/space/article",
-    "method":"GET"
+    "comment": "获取用户文章",
+    "link": "https://api.bilibili.com/x/space/article",
+    "method": "GET"
   },
   {
-      "comment":"",
-      "link":"https://api.bilibili.com/x/article/up/lists",
-      "method":"GET"
+    "comment": "",
+    "link": "https://api.bilibili.com/x/article/up/lists",
+    "method": "GET"
   },
   {
-    "comment":"获取发送音频链接",
-    "link":"https://member.bilibili.com/preupload",
-    "method":""
+    "comment": "获取发送音频链接",
+    "link": "https://member.bilibili.com/preupload",
+    "method": ""
+  },
+  {
+    "comment": "视频评论",
+    "link": "https://api.bilibili.com/x/v2/reply",
+    "method": "GET"
   }
 ]

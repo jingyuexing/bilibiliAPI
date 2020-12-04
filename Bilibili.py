@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-12-03 19:59:25
+# @Last Modified time: 2020-12-05 00:39:47
 
 
 #########################################
@@ -649,6 +649,20 @@ class Vedio(object):
         link = config['link']
         return requests(method, link, param)
 
+    def getReply(self, pageNumber=1, typeis=1, sort=2):
+        config = API[0]
+        param = {
+            'callback': "json",
+            "jsonp": "json",
+            "pn": pageNumber,
+            "type": typeis,
+            "oid": self.oid,
+            "sort": sort
+        }
+        method = config['method']
+        link = config['link']
+        return requests(method, link, param)
+
 
 class Article:
     like = 0
@@ -796,7 +810,7 @@ class User(object):
         }
         return requests(method=method, url=url, fields=parma)
 
-    def getUserVedioList(self,limit=50, tagID=0, pageNumber=1, order='pubdate'):
+    def getUserVedioList(self, limit=50, tagID=0, pageNumber=1, order='pubdate'):
         '''获取用户视频列表
 
         [description]
@@ -822,6 +836,7 @@ class User(object):
             'jsonp': 'jsonp'
         }
         return requests(method=method, url=url, parma=parma)
+
     def upload(kind):
         """上传视频或者音频
 
@@ -836,11 +851,12 @@ class User(object):
         """
         def vedio(file):
             pass
+
         def audio(file):
             pass
         typeKind = {
-            "vedio":vedio,
-            "audio":audio
+            "vedio": vedio,
+            "audio": audio
         }
         return typeKind[kind]
 
