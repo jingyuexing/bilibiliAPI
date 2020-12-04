@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-10-09 16:41:57
+# @Last Modified time: 2020-12-03 19:59:25
 
 
 #########################################
@@ -822,6 +822,27 @@ class User(object):
             'jsonp': 'jsonp'
         }
         return requests(method=method, url=url, parma=parma)
+    def upload(kind):
+        """上传视频或者音频
+
+        Example:
+
+
+        Arguments:
+            kind {str} -- 上传的类型 ("vedio"|"audio")
+
+        Returns:
+            [type] -- [description]
+        """
+        def vedio(file):
+            pass
+        def audio(file):
+            pass
+        typeKind = {
+            "vedio":vedio,
+            "audio":audio
+        }
+        return typeKind[kind]
 
 
 if __name__ == "__main__":

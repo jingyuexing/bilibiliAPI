@@ -188,5 +188,10 @@
       "comment":"",
       "link":"https://api.bilibili.com/x/article/up/lists",
       "method":"GET"
+  },
+  {
+    "comment":"获取发送音频链接",
+    "link":"https://member.bilibili.com/preupload",
+    "method":""
   }
 ]

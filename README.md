@@ -185,7 +185,10 @@ toString()
 |方法|`getUserInfo()`|获取专栏作者信息|
 |方法|`getArticleList()`|获取专栏全部文章信息|
 
+## task
 
+- ☐ 增加发布接口(视频、音频)
+- ☐ 增加爬虫搜索
 
 
 ## LICENSE
