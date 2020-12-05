@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-12-05 12:49:08
+# @Last Modified time: 2020-12-05 12:54:11
 
 
 #########################################
@@ -664,7 +664,6 @@ class Vedio(object):
         """
         config = API[39]
         param = {
-            'callback': "json",
             "jsonp": "json",
             "pn": pageNumber,
             "type": typeis,
