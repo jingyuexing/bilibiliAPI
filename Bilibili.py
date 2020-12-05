@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-12-05 00:39:47
+# @Last Modified time: 2020-12-05 12:49:08
 
 
 #########################################
@@ -650,7 +650,19 @@ class Vedio(object):
         return requests(method, link, param)
 
     def getReply(self, pageNumber=1, typeis=1, sort=2):
-        config = API[0]
+        """获取视频评论
+
+        [description]
+
+        Keyword Arguments:
+            pageNumber {number} -- 评论页数 (default: {1})
+            typeis {number} -- 类型 (default: {1})
+            sort {number} -- 排序方式 (default: {2})
+
+        Returns:
+            JSON -- JSON数据
+        """
+        config = API[39]
         param = {
             'callback': "json",
             "jsonp": "json",
