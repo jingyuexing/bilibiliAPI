@@ -32,7 +32,7 @@ getFanList(mid:int, pageNumber:int, limit:int)
 * 获取用户的视频列表 `已经移入User`
 
 ```py
-getUserVedioList(userMID:int,limit:int,tagID:int,pageNumber:int,order:str)
+getUserVideoList(userMID:int,limit:int,tagID:int,pageNumber:int,order:str)
 ```
 
 * 获取历史弹幕
@@ -44,13 +44,13 @@ getHistoryMsg(tp:int,oid:int,date:date):
 * 获取视频的分享数、点赞数、硬币数、播放数等数据
 
 ```py
-getVedioStat(aid:int)
+getVideoStat(aid:int)
 ```
 
 * 获取视频的详细信息
 
 ```py
-getVedioInfo(bvid:int,avid:int)
+getVideoInfo(bvid:int,avid:int)
 ```
 
 * 上传图片
@@ -126,13 +126,13 @@ isFavorite(avID=None, bvID="")
 ```
 * 删除视频上的一个标签
 ```py
-vedioTagDelete(AID=0, tagID=0)
+videoTagDelete(AID=0, tagID=0)
 ```
 * 获取弹幕
 ```py
 getDanmuku(cid:int=None)
 ```
-* 获取视频评论(在`Vedio`当中)
+* 获取视频评论(在`Video`当中)
 ```py
 getReply(self, pageNumber=1, typeis=1, sort=2)
 ```
@@ -147,7 +147,7 @@ parserCookies(cookies='')
 toString()
 ```
 
-## Vedio 类
+## Video 类
 |类型|名称|意义|
 |:----:|:----|----:|
 |属性|avid|av号|
@@ -165,7 +165,7 @@ toString()
 |属性|share|分享数|
 |属性|view|观看数|
 |属性|reply|评论数|
-|方法|`getVedio()`|获取视频真实链接|
+|方法|`getVideo()`|获取视频真实链接|
 |方法|`getUser()`|获取视频作者信息|
 |方法|`getDamku()`|获取弹幕|
 |方法|`sendDamku()`|发送弹幕|
