@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2021-02-14 15:07:54
+# @Last Modified time: 2021-02-14 15:15:42
 
 # MIT License
 #
@@ -412,7 +412,7 @@ def getShortInfo():
     pass
 
 
-def searchUservideo():
+def searchUserVideo():
     pass
 
 
@@ -842,7 +842,7 @@ class User(object):
         }
         return requests(method=method, url=url, fields=parma)
 
-    def getUservideoList(self, limit=50, tagID=0, pageNumber=1, order='pubdate'):
+    def getUserVideoList(self, limit=50, tagID=0, pageNumber=1, order='pubdate'):
         '''获取用户视频列表
 
         [description]
@@ -873,7 +873,7 @@ class User(object):
         """上传视频或者音频
 
         Example:
-
+            User(id=xxxxxx).upload('video')(yourfile)
 
         Arguments:
             kind {str} -- 上传的类型 ("video"|"audio")
