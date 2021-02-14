@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2020-12-18 00:14:28
+# @Last Modified time: 2021-02-14 15:01:33
 
 # MIT License
 #
@@ -214,24 +214,24 @@ def getHistoryMsg(tp=1, oid=0, date=0):
         return parserDamuku.Danmaku(req.data)
 
 
-def getVedioStat(vedioID=0):
+def getVideoStat(videoID=0):
     '''获取视频的硬币 分享 喜欢
 
     [description]
 
     Keyword Arguments:
-        vedioID {number} -- [description] (default: {0})
+        videoID {number} -- [description] (default: {0})
     '''
     config = API[8]
     url = config['link']
     method = config['method']
     param = {
-        'aid': vedioID
+        'aid': videoID
     }
     return requests(method=method, url=url, param=param)
 
 
-def getVedioInfo(bvid=0, avid=0):
+def getVideoInfo(bvid=0, avid=0):
     '''[summary]
 
     获取视频信息
@@ -412,7 +412,7 @@ def getShortInfo():
     pass
 
 
-def searchUserVedio():
+def searchUservideo():
     pass
 
 
@@ -512,7 +512,7 @@ def getRelations(userID=0):
     return requests(method=method, url=url, param=param)
 
 
-def vedioTagDelete(AID=0, tagID=0):
+def videoTagDelete(AID=0, tagID=0):
     '''需要在登陆情况下操作
 
     删除标签
@@ -543,8 +543,8 @@ def getDanmuku(cid=None):
     return data
 
 
-class Vedio(object):
-    """docstring for Vedio"""
+class Video(object):
+    """docstring for video"""
     avid = 0
     bvid = ''
     cover = ''
@@ -561,9 +561,9 @@ class Vedio(object):
     view = 0
     reply = 0
 
-    def __init__(self, vedioID=''):
-        if(vedioID != ''):
-            data = getVedioInfo(bvid=vedioID)
+    def __init__(self, videoID=''):
+        if(videoID != ''):
+            data = getVideoInfo(bvid=videoID)
             if(data != None):
                 data = data['data']
                 self.avid = data['aid']     # avid号
@@ -582,7 +582,7 @@ class Vedio(object):
                 self.like = data['stat']['like']    # 点赞数
                 self.reply = data['stat']['reply']
 
-    def getVedio(self, qn=0):
+    def getVideo(self, qn=0):
         """获取视频的真实链接
 
         [description]
@@ -842,7 +842,7 @@ class User(object):
         }
         return requests(method=method, url=url, fields=parma)
 
-    def getUserVedioList(self, limit=50, tagID=0, pageNumber=1, order='pubdate'):
+    def getUservideoList(self, limit=50, tagID=0, pageNumber=1, order='pubdate'):
         '''获取用户视频列表
 
         [description]
@@ -876,18 +876,18 @@ class User(object):
 
 
         Arguments:
-            kind {str} -- 上传的类型 ("vedio"|"audio")
+            kind {str} -- 上传的类型 ("video"|"audio")
 
         Returns:
             [type] -- [description]
         """
-        def vedio(file):
+        def video(file):
             pass
 
         def audio(file):
             pass
         typeKind = {
-            "vedio": vedio,
+            "video": video,
             "audio": audio
         }
         return typeKind[kind]
