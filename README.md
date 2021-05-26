@@ -9,7 +9,7 @@
  ![](https://img.shields.io/badge/API-bilibili-fb7299.svg)
 
 ## API
-see [https://jingyuexing.github.io/bilibiliAPI/]
+[see](https://jingyuexing.github.io/bilibiliAPI/)
 ## task
 
 - ☐ 增加发布接口(视频、音频)
