@@ -2,10 +2,10 @@
 # @Author: Admin
 # @Date:   2021-05-27 07:45:23
 # @Last Modified by:   Admin
-# @Last Modified time: 2021-05-27 08:48:12
+# @Last Modified time: 2021-05-27 08:51:42
 
 import sys,os
-from .. import Bilibili
+from bilibiliAPI import Bilibili
 
 sys.path.append(os.path.dirname(__file__)+ os.sep + '../')
 
