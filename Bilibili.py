@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   Jingyuexing
-# @Last Modified time: 2021-02-14 15:15:42
+# @Last Modified by:   Admin
+# @Last Modified time: 2021-05-27 08:16:46
 
 # MIT License
 #
@@ -704,7 +704,7 @@ class Article:
     share = 0
     uid = 0
     user = None
-
+    title = ''
     def __init__(self, articleID=None):
         if(not articleID):
             data = self.getArticleInfo(articleID)
@@ -714,6 +714,7 @@ class Article:
             self.read = data['stats']["view"]
             self.reply = data['stats']["reply"]
             self.uid = data['mid']
+            self.title = data['title']
             self.user = User(self.uid)
 
     def getArticleInfo(self, articleID=0):
