@@ -2,15 +2,15 @@
 # @Author: Admin
 # @Date:   2021-05-27 07:45:23
 # @Last Modified by:   Admin
-# @Last Modified time: 2021-05-27 08:45:22
+# @Last Modified time: 2021-05-27 08:48:12
 
 import sys,os
-from ..Bilibili import User, Article, Video
+from .. import Bilibili
 
 sys.path.append(os.path.dirname(__file__)+ os.sep + '../')
 
 def test_User():
-    user = User(546195)
+    user = Bilibili.User(546195)
     print(user.birthday)
     print(user.mid)
     print(user.level)
@@ -19,7 +19,7 @@ def test_User():
 def test_Article():
     # like https://www.bilibili.com/read/cv11442795
     # this digits is article number
-    article = Article(11442795)
+    article = Bilibili.Article(11442795)
     print(f"文章{article.title}")
     print(f"此文章投币数是:{article.coin}")
     print(f"此文章点赞数为:{article.like}")
@@ -27,7 +27,7 @@ def test_Article():
 
 
 def test_Video():
-    video = Video("15q4y1j7Yu")
+    video = Bilibili.Video("15q4y1j7Yu")
     print(f'视频封面:{video.cover}')
     print(f'视频点赞数:{video.like}')
     print(f'视频投币数:{video.coin}')
