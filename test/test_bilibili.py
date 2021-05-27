@@ -2,9 +2,12 @@
 # @Author: Admin
 # @Date:   2021-05-27 07:45:23
 # @Last Modified by:   Admin
-# @Last Modified time: 2021-05-27 08:30:15
+# @Last Modified time: 2021-05-27 08:45:22
+
+import sys,os
 from ..Bilibili import User, Article, Video
 
+sys.path.append(os.path.dirname(__file__)+ os.sep + '../')
 
 def test_User():
     user = User(546195)
