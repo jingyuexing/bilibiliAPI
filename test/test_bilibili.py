@@ -5,12 +5,12 @@
 # @Last Modified time: 2021-05-27 08:51:42
 
 import sys,os
-from bilibiliAPI import Bilibili
-
 sys.path.append(os.path.dirname(__file__)+ os.sep + '../')
+from Bilibili import User,Video,Article
+
 
 def test_User():
-    user = Bilibili.User(546195)
+    user = User(546195)
     print(user.birthday)
     print(user.mid)
     print(user.level)
@@ -19,7 +19,7 @@ def test_User():
 def test_Article():
     # like https://www.bilibili.com/read/cv11442795
     # this digits is article number
-    article = Bilibili.Article(11442795)
+    article = Article(11442795)
     print(f"文章{article.title}")
     print(f"此文章投币数是:{article.coin}")
     print(f"此文章点赞数为:{article.like}")
@@ -27,7 +27,7 @@ def test_Article():
 
 
 def test_Video():
-    video = Bilibili.Video("15q4y1j7Yu")
+    video = Video("15q4y1j7Yu")
     print(f'视频封面:{video.cover}')
     print(f'视频点赞数:{video.like}')
     print(f'视频投币数:{video.coin}')
