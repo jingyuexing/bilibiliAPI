@@ -16,6 +16,7 @@ jobs:
         python-version: 3.6
     - name: depend
       run: |
+        pip list | grep urllib
         $conda/bin/conda install urllib3
     - name: run test
       run: |
