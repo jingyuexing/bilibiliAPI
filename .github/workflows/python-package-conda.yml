@@ -19,8 +19,9 @@ jobs:
         /opt/hostedtoolcache/Python/3.6.13/x64/bin/python -m pip install --upgrade pip
     - name: depend
       run: |
+        conda env update --file environment.yml --name base
         pip list | grep urllib
         $conda/bin/conda install urllib3
     - name: run test
       run: |
-        python test/test_bilibili.py
+        python3 test/test_bilibili.py
