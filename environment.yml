@@ -1,0 +1,5 @@
+name: bilibiliAPI
+channels:
+  - defaults
+dependencies:
+  - pip==21.1.2
