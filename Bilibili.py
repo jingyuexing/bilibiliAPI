@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2021-09-08 22:33:59
+# @Last Modified time: 2021-09-08 23:11:09
 
 # MIT License
 #
@@ -908,7 +908,7 @@ class User(object):
         method= config['method']
         return requests(method=method,url=url,param=UserLoginParams)
     @classmethod
-    def getUserVedioList(self, limit=50, tagID=0, pageNumber=1, order='pubdate'):
+    def getUserVideoList(self, limit=50, tagID=0, pageNumber=1, order='pubdate'):
         '''获取用户视频列表
 
         [description]
