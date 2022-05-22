@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
-# @Last Modified by:   Admin
-# @Last Modified time: 2021-05-27 08:16:46
+# @Last Modified by:   Jingyuexing
+# @Last Modified time: 2021-09-08 23:11:09
 
 # MIT License
 #
@@ -35,6 +35,11 @@ import json
 import time
 import urllib3
 from damuku import parserDamuku
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_v1_5
+from Crypto.Random import Random
+import base64
+
 
 COOKIES = ''
 
@@ -775,7 +780,7 @@ class User(object):
                 self.rank = data['rank']
                 self.face = data['face']
                 self.vip = bool(data['vip']['type'])
-
+    @classmethod
     def getArtcile(self, pn=1, ps=12):
         """获取文章列表
 
@@ -799,7 +804,7 @@ class User(object):
             "jsonp": "jsonp"
         }
         return requests(method=method, url=url, param=param)
-
+    @classmethod
     def getArticleList(self):
         """获取用户专栏列表
 
@@ -817,7 +822,7 @@ class User(object):
             "jsonp": "jsonp"
         }
         return requests(method=method, url=url, param=param)
-
+    @classmethod
     def getFanList(self, pageNumber=1, limit=20):
         '''获取粉丝列表
 
@@ -842,7 +847,67 @@ class User(object):
             "jsonp": "jsonp"
         }
         return requests(method=method, url=url, fields=parma)
+    @classmethod
+    def login(self,username,password):
+        """用户的登录
+        第〇步:
+            获取加密公钥和哈希值
+        第一步:
+            经过前端的验证码验证非机器后发起请求,获取Token
+        第二步:
+            将必要的数据发送给登录API
+        [description]
 
+        Arguments:
+            username {str} -- 用户名 你也可以用邮箱
+            password {str} -- 用户密码
+        """
+        def encrypt_rsa(key, msg):
+            msg = msg.encode("utf-8")
+            rsa_key = RSA.importKey(key)
+            cipher = PKCS1_v1_5.new(rsa_key)
+            text = cipher.encrypt(msg)
+            return base64.b64encode(text)
+        def getToken():
+            config = API[41]
+            tokenParams = {
+                'url': config['link'],
+                'method':config['method']
+            }
+            return requests(
+                url=tokenParams['url'],
+                method=tokenParams['method'],
+                param={
+                    "source":"main_web"
+                }
+            )
+
+        def getPublicKey():
+            config = API[40]
+            publicKeyParams = {
+                'url':config['link'],
+                'method':config['method']
+            }
+            return requests(method=publicKeyParams['method'],url=publicKeyParams['link'], param={
+                'r':Random.randrange(1,10)
+            })
+        publicKey = getPublicKey()['data']
+        userToken = getToken()['data']
+        hashValue = publicKey['hash']
+        ciherText = encrypt_rsa(publicKey['key'],f'{hashValue}{password}')
+        UserLoginParams={
+            "source":"",
+            "username":username,
+            "password":ciherText,
+            "keep": True,
+            "token": userToken['token'],
+            "go_url": ""  # https://www.bilibili.com/
+        }
+        config = API[42]
+        url = config['link']
+        method= config['method']
+        return requests(method=method,url=url,param=UserLoginParams)
+    @classmethod
     def getUserVideoList(self, limit=50, tagID=0, pageNumber=1, order='pubdate'):
         '''获取用户视频列表
 
@@ -869,7 +934,7 @@ class User(object):
             'jsonp': 'jsonp'
         }
         return requests(method=method, url=url, parma=parma)
-
+    @classmethod
     def upload(kind):
         """上传视频或者音频
 
