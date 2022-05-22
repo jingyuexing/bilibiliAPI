@@ -27,17 +27,18 @@ def test_Article():
 
 
 def test_Video():
-    video = Video("15q4y1j7Yu")
+    video = Video("BV1BS4y1Y73G")
     print(f'视频封面:{video.cover}')
     print(f'视频点赞数:{video.like}')
     print(f'视频投币数:{video.coin}')
     print(f'视频上传时间:{video.createTime}')
     print(f'视频收藏数:{video.favorite}')
+    print(video.getReply(1))
 
 
 def main():
-    test_User()
-    test_Article()
+    # test_User()
+    # test_Article()
     test_Video()
 
 

@@ -2,7 +2,7 @@
 # @Author: Moid
 # @Date:   2020-04-19 18:30:33
 # @Last Modified by:   Jingyuexing
-# @Last Modified time: 2021-09-08 23:11:09
+# @Last Modified time: 2021-11-11 14:35:21
 
 # MIT License
 #
@@ -57,9 +57,10 @@ dataType = {
 head = {
     "Sec-Fetch-Mode": "no-cors",
     "Cache-Control": "max-age=0",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Accept-Language": "zh-CN,zh;q=0.9",
+    "Accept-Encoding": "gzip, br",
+    "Accept-Language": "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
     "Accept": "application/json, text/plain, */*",
+    "Upgrade-Insecure-Requests":1,
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 }
 
@@ -69,6 +70,13 @@ with open("data/API.json", "r", encoding='utf-8') as file:
     API = json.loads(file.read())
     file.close()
 
+def randomAgent():
+    import random
+    with open("data/UserAgent.json",'r',encoding='utf-8') as file:
+        UserAgent = json.loads(file.read())
+        file.close()
+        index = random.randint(0,len(UserAgent)-1)
+    return UserAgent[index]
 
 class Cookies:
     """docstring for Cookies"""
@@ -109,7 +117,7 @@ class Cookies:
         return oldCookies.toString()
 
 
-def requests(method='', url='', param={}):
+def requests(method='', url='', param={},types='json'):
     '''
     发起请求
     =======
@@ -127,16 +135,17 @@ def requests(method='', url='', param={}):
     global COOKIES
     if(COOKIES != ""):
         head['Cookie'] = COOKIES
+    head['Content-Type'] = dataType[types]
+    head['User-Agent'] = randomAgent()
     req = http.request(method=method, url=url, fields=param, headers=head)
     if (req.status == 200):
-        resData = json.loads(req.data.decode("utf-8"), encoding='utf-8')
+        resData = json.loads(req.data.decode(encoding='utf-8'), encoding='utf-8')
         _head = dict(req.headers)
 
         if('Set-Cookie' in list(_head.keys())):
             oldCookie = Cookies(COOKIES)
             COOKIES = oldCookie.replaceCookies(COOKIES, resData['Set-Cookie'])
         return resData
-
 
 def getRank(rankID=0, day=3, typer=1, arc_type=0):
     '''
@@ -182,7 +191,7 @@ def getUserInfor(userid=0):
     url = config["link"]
     parma = {
         "mid": str(userid),
-        "jsonp": "jsonp"
+        # "jsonp": ""
     }
     return requests(method=method, url=url, param=parma)
 
@@ -629,8 +638,11 @@ class Video(object):
         return getDanmuku(self.cid)
 
     def sendDamku(self, color: str = '#ffffff', fontsize: int = 25, mode: int = 1, pool: int = 1, content: str = ''):
-        '''发送弹幕
+        '''
+        发送弹幕
+
         [description]
+
         Keyword Arguments:
             color {str} -- 弹幕颜色 (default: {''})
             fontsize {int} -- 字体大小 (default: {25})
@@ -675,7 +687,7 @@ class Video(object):
         link = config['link']
         return requests(method, link, param)
 
-    def getReply(self, pageNumber=1, typeis=1, sort=2):
+    def getReply(self, pageNumber=1, typeis=1, sort=2,mode=3,plat=1):
         """获取视频评论
 
         [description]
@@ -691,10 +703,12 @@ class Video(object):
         config = API[39]
         param = {
             "jsonp": "json",
-            "pn": pageNumber,
+            "next": pageNumber,
             "type": typeis,
             "oid": self.oid,
-            "sort": sort
+            "sort": sort,
+            "mode":mode,
+            "plat":plat
         }
         method = config['method']
         link = config['link']
@@ -961,4 +975,5 @@ class User(object):
 
 if __name__ == "__main__":
     user = User(546195)
+    print(randomAgent())
     print(user.face)

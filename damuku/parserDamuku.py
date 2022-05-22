@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # @Author: Jingyuexing
 # @Date:   2020-04-30 15:48:44
-# @Last Modified by:   Admin
-# @Last Modified time: 2020-07-14 00:58:37
+# @Last Modified by:   admin
+# @Last Modified time: 2022-05-22 16:12:54
 
+from typing import Optional
 import xml.etree.cElementTree as cET
 
 
@@ -14,15 +15,15 @@ class Danmaku:
     ```
     第一个 是stime 0 然后是mode 1  再是size 2 再是color 3 再是date 4 再是pool 5 再是uhash 6 再是dmid 7
     """
-    __color__:int = None
-    __date__:int = None
-    __dmid__:int = None
-    __pool__:int = None
-    __stime__:float = None
-    __mode__:int = None
+    __color__:Optional[int] = None
+    __date__:Optional[int] = None
+    __dmid__:Optional[int] = None
+    __pool__:Optional[int] = None
+    __stime__:Optional[float] = None
+    __mode__:Optional[int] = None
     __text__:str = ''
     __uhash__:str = ''
-    __size__:int = None
+    __size__:Optional[int] = None
     __content__:str = ""
     data:list = []
 
