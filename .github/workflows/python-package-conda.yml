@@ -17,13 +17,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.6
+    - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
-        python-version: 3.6
+        python-version: 3.8
     - name: update pip
       run: |
-        /opt/hostedtoolcache/Python/3.6.13/x64/bin/python -m pip install --upgrade pip
+        python3 -m pip install --upgrade pip
     - name: depend
       run: |
         conda env update --file environment.yml --name base
@@ -31,7 +31,7 @@ jobs:
         $conda/bin/conda install urllib3
     - name: run test
       run: |
-        python test/test_bilibili.py
+        python3 test/test_bilibili.py
     - name: Deactivate Conda environment
       run: |
         conda deactivate
