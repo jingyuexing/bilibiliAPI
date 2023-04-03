@@ -33,6 +33,7 @@
 
 import json
 import time
+from typing import Union
 import urllib3
 from damuku import parserDamuku
 from Crypto.PublicKey import RSA
@@ -190,7 +191,7 @@ def getUserInfor(userid=0):
     method = config["method"]
     url = config["link"]
     parma = {
-        "vmid": str(userid),
+        "mid": str(userid),
         # "jsonp": ""
     }
     return requests(method=method, url=url, param=parma)
@@ -245,7 +246,7 @@ def getVideoStat(videoID=0):
     return requests(method=method, url=url, param=param)
 
 
-def getVideoInfo(bvid=0, avid=0):
+def getVideoInfo(bvid:str='', avid=0):
     '''[summary]
 
     获取视频信息
@@ -575,26 +576,29 @@ class Video(object):
     view = 0
     reply = 0
 
-    def __init__(self, videoID:int=0):
-        if(videoID != ''):
+    def __init__(self, videoID:Union[int,str]=0):
+        data = None
+        if(isinstance(videoID,str)):
             data = getVideoInfo(bvid=videoID)
-            if(data != None):
-                data = data['data']
-                self.avid = data['aid']     # avid号
-                self.bvid = data['bvid']    # bvid号
-                self.tag = data['tname']    # 标签
-                self.tagID = data['tid']    # 标签id
-                self.title = data['title']  # 标题
-                self.cover = data['pic']    # 封面
-                self.oid = data['cid']      # 分P号
-                self.owner = data['owner']['mid']   # 视频所有者
-                self.createTime = data['ctime']     # 视频创建时间=上传时间
-                self.view = data['stat']['view']    # 观看数
-                self.favorite = data['stat']['favorite']    # 收藏数
-                self.coin = data['stat']['coin']        # 投币数
-                self.share = data['stat']['share']  # 分享数
-                self.like = data['stat']['like']    # 点赞数
-                self.reply = data['stat']['reply']
+        else:
+            data = getVideoInfo(avid=videoID)
+        if(data):
+            data = data['data']
+            self.avid = data['aid']     # avid号
+            self.bvid = data['bvid']    # bvid号
+            self.tag = data['tname']    # 标签
+            self.tagID = data['tid']    # 标签id
+            self.title = data['title']  # 标题
+            self.cover = data['pic']    # 封面
+            self.oid = data['cid']      # 分P号
+            self.owner = data['owner']['mid']   # 视频所有者
+            self.createTime = data['ctime']     # 视频创建时间=上传时间
+            self.view = data['stat']['view']    # 观看数
+            self.favorite = data['stat']['favorite']    # 收藏数
+            self.coin = data['stat']['coin']        # 投币数
+            self.share = data['stat']['share']  # 分享数
+            self.like = data['stat']['like']    # 点赞数
+            self.reply = data['stat']['reply']
 
     def getVideo(self, qn=0):
         """获取视频的真实链接
@@ -725,16 +729,18 @@ class Article:
     user = None
     title = ''
     def __init__(self, articleID=None):
-        if(not articleID):
+        if(articleID):
             data = self.getArticleInfo(articleID)
-            data = data['data']
-            self.coin = data['stats']["coin"]
-            self.like = data['stats']["like"]
-            self.read = data['stats']["view"]
-            self.reply = data['stats']["reply"]
-            self.uid = data['mid']
-            self.title = data['title']
-            self.user = User(self.uid)
+            if (data):
+                data = data['data']
+                self.coin = data['stats']["coin"]
+                self.like = data['stats']["like"]
+                self.read = data['stats']["view"]
+                self.reply = data['stats']["reply"]
+                self.uid = data['mid']
+                self.title = data['title']
+                self.user = User(self.uid)
+
 
     def getArticleInfo(self, articleID=0):
         '''获取专栏信息
@@ -753,8 +759,9 @@ class Article:
         param = {
             'id': articleID
         }
-
-        return requests(method=method, url=url, param=param)
+        res = requests(method=method, url=url, param=param)
+        if res["code"] == 0:
+            return res
 
     def getUserInfo(self):
         """获取文章作者信息
@@ -767,7 +774,8 @@ class Article:
         return self.user
 
     def getUserArticle(self):
-        return self.user.getArtcile()
+        if self.user:
+            return self.user.getArtcile()
 
 
 class User(object):
