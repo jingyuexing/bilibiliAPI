@@ -11,7 +11,7 @@
     },
     {
         "comment": "用户信息",
-        "link": "https://api.bilibili.com/x/space/acc/info",
+        "link": "https://api.bilibili.com/x/space/wbi/acc/info",
         "method": "GET"
     },
     {
