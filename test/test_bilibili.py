@@ -7,7 +7,7 @@
 import sys,os
 import unittest
 sys.path.append(os.path.dirname(__file__)+ os.sep + '../')
-from Bilibili import User,Video,Article,getOnlineNumber
+from Bilibili import User,Video,Article, getBlackList, getFollowsList,getOnlineNumber
 from unittest import TestCase
 
 class TestApi(TestCase):
@@ -27,5 +27,12 @@ class TestApi(TestCase):
         online = getOnlineNumber()
         self.assertTrue(expr=online != None,msg="online number API testing failed")
 
+    def testGetBlackList(self):
+        blackList  = getBlackList()
+
+        self.assertTrue(expr=blackList and blackList["data"] != None,msg="getblackList APi testing failed")
+    def testGetFollowList(self):
+        follows = getFollowsList(546195)
+        self.assertTrue(follows and follows["data"],msg="testing followList API failed")
 if __name__ == '__main__':
     unittest.main()

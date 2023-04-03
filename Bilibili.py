@@ -367,7 +367,7 @@ def getFollowsList(userID=0, limit=50, pageNumber=1):
     return requests(method=method, url=url, param=param)
 
 
-def getBlackList(btype=None, otype=0, pageNumber=1):
+def getBlackList(btype='', otype=0, pageNumber=1):
     config = API[16]
     method = config['method']
     url = config['link']
@@ -760,7 +760,7 @@ class Article:
             'id': articleID
         }
         res = requests(method=method, url=url, param=param)
-        if res["code"] == 0:
+        if res and res["code"] == 0:
             return res
 
     def getUserInfo(self):
