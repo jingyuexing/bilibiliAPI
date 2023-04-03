@@ -10,7 +10,8 @@ from Bilibili import User,Video,Article
 
 
 def test_User():
-    user = User(546195)
+    # user = User(546195)
+    user = User(2779983)
     print(user.birthday)
     print(user.mid)
     print(user.level)
@@ -37,10 +38,10 @@ def test_Video():
 
 
 def main():
-    # test_User()
-    # test_Article()
+    test_User()
+    test_Article()
     test_Video()
 
 
 if __name__ == '__main__':
-    main()
+    test_User()
