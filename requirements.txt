@@ -2,4 +2,3 @@ jieba>= 0.42.1
 wordcloud>= 1.8.1
 Pillow >= 8.2.0
 pycrypto>=2.6.1
-base64
