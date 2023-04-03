@@ -783,7 +783,7 @@ class User(object):
 
     def __init__(self, userid=0):
         if(userid != 0):
-            data = getUserInfoCard(userid=userid)
+            data = getUserInfor(userid=userid)
             if(data != None):
                 data = data['data']
                 self.mid = data['mid']
