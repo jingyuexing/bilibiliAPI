@@ -146,7 +146,9 @@ def requests(method='', url='', param={},types='json'):
         if('Set-Cookie' in list(_head.keys())):
             oldCookie = Cookies(COOKIES)
             COOKIES = oldCookie.replaceCookies(COOKIES, resData['Set-Cookie'])
+        http.clear()
         return resData
+
 
 def getRank(rankID=0, day=3, typer=1, arc_type=0):
     '''
