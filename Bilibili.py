@@ -37,7 +37,7 @@ import urllib3
 from damuku import parserDamuku
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5
-from Crypto.Random import Random
+from Crypto.Random.random import randint, randrange
 import base64
 
 
@@ -788,7 +788,7 @@ class User(object):
                 data = data['data']
                 self.mid = data['mid']
                 self.name = data['name']
-                self.sex = data['sex']
+                self.gender = data['sex']
                 self.birthday = data['birthday']
                 self.level = data['level']
                 self.rank = data['rank']
@@ -903,7 +903,7 @@ class User(object):
                 'method':config['method']
             }
             return requests(method=publicKeyParams['method'],url=publicKeyParams['link'], param={
-                'r':Random.randrange(1,10)
+                'r':randrange(1,10),
             })
         publicKey = getPublicKey()['data']
         userToken = getToken()['data']
