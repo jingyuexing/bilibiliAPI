@@ -64,7 +64,7 @@ head = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 }
 
-API = None
+API = []
 
 with open("data/API.json", "r", encoding='utf-8') as file:
     API = json.loads(file.read())
@@ -172,7 +172,7 @@ def getRank(rankID=0, day=3, typer=1, arc_type=0):
         'arc_type': arc_type,
         'jsonp': 'jsonp'
     }
-    return requests(method=method, url=url, fields=parma)
+    return requests(method=method, url=url, param=parma)
 
 
 def getUserInfor(userid=0):
@@ -190,7 +190,7 @@ def getUserInfor(userid=0):
     method = config["method"]
     url = config["link"]
     parma = {
-        "mid": str(userid),
+        "vmid": str(userid),
         # "jsonp": ""
     }
     return requests(method=method, url=url, param=parma)
@@ -412,12 +412,12 @@ def getMyselfInfo():
     pass
 
 
-def getUserInfoCard(userID):
+def getUserInfoCard(userid:str):
     config = API[28]
     url = config['link']
     method = config['method']
     param = {
-        'mid': userID
+        'mid': userid
     }
     return requests(method=method, url=url, param=param)
 
@@ -575,7 +575,7 @@ class Video(object):
     view = 0
     reply = 0
 
-    def __init__(self, videoID=''):
+    def __init__(self, videoID:int=0):
         if(videoID != ''):
             data = getVideoInfo(bvid=videoID)
             if(data != None):
@@ -783,7 +783,7 @@ class User(object):
 
     def __init__(self, userid=0):
         if(userid != 0):
-            data = getUserInfor(userid=userid)
+            data = getUserInfoCard(userid=userid)
             if(data != None):
                 data = data['data']
                 self.mid = data['mid']
@@ -947,7 +947,7 @@ class User(object):
             'order': order,
             'jsonp': 'jsonp'
         }
-        return requests(method=method, url=url, parma=parma)
+        return requests(method=method, url=url, param=parma)
     @classmethod
     def upload(kind):
         """上传视频或者音频
