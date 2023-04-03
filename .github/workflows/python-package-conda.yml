@@ -31,4 +31,8 @@ jobs:
         $conda/bin/conda install urllib3
     - name: run test
       run: |
-        python3 test/test_bilibili.py
+        python test/test_bilibili.py
+    - name: Deactivate Conda environment
+      run: |
+        conda deactivate
+      shell: bash
