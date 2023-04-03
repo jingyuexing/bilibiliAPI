@@ -7,7 +7,7 @@
 import sys,os
 import unittest
 sys.path.append(os.path.dirname(__file__)+ os.sep + '../')
-from Bilibili import User,Video,Article, getBlackList, getFollowsList,getOnlineNumber
+from Bilibili import Cookies, User,Video,Article, getBlackList, getFollowsList,getOnlineNumber
 from unittest import TestCase
 
 class TestApi(TestCase):
@@ -29,10 +29,16 @@ class TestApi(TestCase):
 
     def testGetBlackList(self):
         blackList  = getBlackList()
-
         self.assertTrue(expr=blackList and blackList["data"] != None,msg="getblackList APi testing failed")
+
     def testGetFollowList(self):
         follows = getFollowsList(546195)
         self.assertTrue(follows and follows["data"],msg="testing followList API failed")
+
+    def testCookies(self):
+        cookie = Cookies("a=5;b=3;c=90")
+        self.assertEqual(first=cookie.getCookies("a"),second="5",msg="get cookie failed")
+        cookie.setCookies("awk","nice!")
+        self.assertEqual(first=cookie.getCookies("awk"),second="nice!",msg="setter cookie failed")
 if __name__ == '__main__':
     unittest.main()
